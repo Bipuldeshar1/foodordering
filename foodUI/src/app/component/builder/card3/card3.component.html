@@ -1,0 +1,28 @@
+<swiper-container
+  pagination='{
+  "el": ".swiper-pagination",
+  "clickable": true,
+  "type": "bullets"
+}'
+  space-between="30"
+  slides-per-view="4"
+  class="mySwiper"
+>
+  <swiper-slide *ngFor="let i of resturants">
+    <div class="flex flex-row">
+      <div class="flex flex-col px-5">
+        <div class="w-[190px]">
+          <img
+            class="rounded-t-lg"
+            src="https://imgs.search.brave.com/JrpomeirMIMQ3vaQ_HEGU1rIjY7lTEX9LirW7fjhsTM/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YWNhdGVyZXIuY29t/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDIz/LzA2L0tGQy1sb2dv/LTEuanBn"
+          />
+        </div>
+        <div
+          class="bg-[#FC8A06] w-[190px] h-10 rounded-b-lg text-white font-bold text-center font-poppins p-3 overflow-hidden"
+        >
+          {{ i.Name }}
+        </div>
+      </div>
+    </div>
+  </swiper-slide>
+</swiper-container>

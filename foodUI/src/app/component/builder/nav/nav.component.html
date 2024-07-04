@@ -1,0 +1,42 @@
+<div>
+  <div class="flex flex-row justify-between m-2 md:hidden">
+    <p class="cursor-pointer">LOGO</p>
+    <div class="cursor-pointer w-8 font-extrabold" (click)="onNavShow()">=</div>
+  </div>
+  <div [ngClass]="{ hidden: !NavVisible }" class="md:block">
+    <div
+      class="flex flex-col justify-center space-y-2 items-center bg-gray-500 h-auto md:bg-white md:flex-row md:justify-between"
+    >
+      <div class="md:flex-grow md:flex md:justify-start">
+        <ul class="md:flex md:space-x-10 font-Poppins">
+          <li class="cursor-pointer hidden md:block" routerLink="/">LOGO</li>
+          <li class="cursor-pointer hover:text-[#FC8A06]" routerLink="/">
+            Home
+          </li>
+          <li class="cursor-pointer hover:text-[#FC8A06]">Browse Menu</li>
+          <li class="cursor-pointer hover:text-[#FC8A06]">Restaurants</li>
+          <li class="cursor-pointer hover:text-[#FC8A06]" routerLink="/login">
+            Offers
+          </li>
+          <li
+            class="cursor-pointer hover:text-[#FC8A06] md:hidden"
+            routerLink="/login"
+          >
+            Login
+          </li>
+          <li
+            class="cursor-pointer hover:text-[#FC8A06]"
+            routerLink="/ResturantDetail"
+          >
+            detil
+          </li>
+        </ul>
+      </div>
+      <button
+        class="hidden md:flex bg-blue-950 hover:bg-blue-900 text-white justify-center rounded-2xl items-center h-9 w-40"
+      >
+        Login
+      </button>
+    </div>
+  </div>
+</div>

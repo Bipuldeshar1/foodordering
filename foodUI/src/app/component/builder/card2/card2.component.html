@@ -1,0 +1,15 @@
+<div class="grid gap-4 grid-cols-3 lg:flex lg:flex-row">
+  <div class="flex flex-col" *ngFor="let cat of category">
+    <div class="w-[190px]">
+      <img
+        class="rounded-t-lg"
+        src="https://imgs.search.brave.com/5zcq_kRdP_VSBabibGyjf4pyiCili77HwkBxnesWMqE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTg0/OTQ2NzAxL3Bob3Rv/L3BpenphLmpwZz9z/PTYxMng2MTImdz0w/Jms9MjAmYz05N3Jj/MFZJaS1zM21uNHhl/NHhEeTlTLVhKX09o/Ym45MlhhRU1haUlE/X2VZPQ"
+      />
+    </div>
+    <div
+      class="bg-[#03081F] w-[190px] h-10 rounded-b-lg text-[#FC8A06] font-bold text-center font-poppins p-3 overflow-hidden"
+    >
+      {{ cat.Name }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<swiper-container
+  pagination='{
+    "el": ".swiper-pagination",
+    "clickable": true,
+    "type": "bullets"
+  }'
+  space-between="30"
+  slides-per-view="3"
+  class="mySwiper"
+>
+  <swiper-slide *ngFor="let restaurant of resturants">
+    <div class="lg:flex">
+      <img
+        class="rounded-lg w-[300px] h-[200px] lg:w-[450px] lg:h-[235px]"
+        src="https://imgs.search.brave.com/KGHCUxq1UtQjkIv9wug9gkvyKanrT_I1g8MT-bErXAo/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9leHBl/cnRwaG90b2dyYXBo/eS5iLWNkbi5uZXQv/d3AtY29udGVudC91/cGxvYWRzLzIwMjAv/MDYvcGl6emEtcGhv/dG9ncmFwaHktMS5q/cGc"
+        alt="Image with text"
+      />
+      <div class="lg:absolute inset-0">
+        <div
+          class="relative sm:hidden lg:block lg:left-[320px] bg-[#03081F] lg:w-[70px] lg:h-11 text-white rounded-b-md text-center font-bold p-2 text-sm"
+        >
+          -40%
+        </div>
+        <div class="lg:flex lg:flex-col lg:absolute lg:top-[170px]">
+          <p class="text-[#FC8A06] px-5 pt-1 font-poppins font-bold">
+            Restaurant
+          </p>
+          <p
+            class="text-[#03081F] text-sm px-5 py-0 font-poppins font-bold lg:text-lg"
+          >
+            {{ restaurant.Name }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </swiper-slide>
+</swiper-container>
