@@ -1,4 +1,5 @@
-﻿using foodBackend.models;
+﻿using foodBackend.Dtos.food;
+using foodBackend.models;
 using foodBackend.Repository.food;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace foodBackend.Controllers
             this.food = food;
         }
 
-        public Task<IActionResult> addFood(foodModel model) {
+        public Task<IActionResult> addFood(foodReg model) {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             
             return food.addFood(model,userIdClaim);

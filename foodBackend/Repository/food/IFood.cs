@@ -1,11 +1,12 @@
-﻿using foodBackend.models;
+﻿using foodBackend.Dtos.food;
+using foodBackend.models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace foodBackend.Repository.food
 {
     public interface IFood
     {
-        public Task<IActionResult> addFood(foodModel model,string id);
+        public Task<IActionResult> addFood(foodReg model,string id);
 
         public Task<IActionResult> getFood();
 
