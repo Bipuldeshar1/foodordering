@@ -1,4 +1,5 @@
-﻿using foodBackend.Dtos.food;
+﻿using foodBackend.Data;
+using foodBackend.Dtos.food;
 using foodBackend.models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +7,12 @@ namespace foodBackend.Repository.food
 {
     public class foodServices : IFood
     {
+        private readonly AppDbContext context;
+
+        public foodServices(AppDbContext context)
+        {
+            this.context = context;
+        }
         public Task<IActionResult> addFood(foodReg model, string id)
         {
             throw new NotImplementedException();
