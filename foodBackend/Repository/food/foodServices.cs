@@ -11,7 +11,7 @@ namespace foodBackend.Repository.food
             throw new NotImplementedException();
         }
 
-        public Task<IActionResult> deleteFood(foodModel model, string id)
+        public Task<IActionResult> deleteFood(foodUpdate model, string id)
         {
             throw new NotImplementedException();
         }
@@ -21,7 +21,7 @@ namespace foodBackend.Repository.food
             throw new NotImplementedException();
         }
 
-        public Task<IActionResult> updateFood(foodModel model, string id)
+        public Task<IActionResult> updateFood(foodUpdate model, string id)
         {
             throw new NotImplementedException();
         }

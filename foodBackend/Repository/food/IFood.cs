@@ -10,9 +10,9 @@ namespace foodBackend.Repository.food
 
         public Task<IActionResult> getFood();
 
-        public Task<IActionResult> updateFood(foodModel model, string id);
+        public Task<IActionResult> updateFood(foodUpdate model, string id);
 
-        public Task<IActionResult> deleteFood(foodModel model, string id);
+        public Task<IActionResult> deleteFood(foodUpdate model, string id);
        
     }
 }

@@ -25,17 +25,17 @@ namespace foodBackend.Controllers
         }
         public Task<IActionResult> getFood()
         {
-            return null;
+            return food.getFood();
         }
-        public Task<IActionResult> updateFood(foodModel model)
+        public Task<IActionResult> updateFood(foodUpdate model)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return null;
+            return food.updateFood(model,userIdClaim);
         }
-        public Task<IActionResult> deleteFood(foodModel model)
+        public Task<IActionResult> deleteFood(foodUpdate model)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return null;
+            return food.deleteFood(model,userIdClaim);
         }
     }
 }
