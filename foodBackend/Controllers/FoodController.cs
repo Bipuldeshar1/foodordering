@@ -7,5 +7,9 @@ namespace foodBackend.Controllers
     [ApiController]
     public class FoodController : ControllerBase
     {
+        public FoodController()
+        {
+            
+        }
     }
 }

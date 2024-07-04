@@ -12,6 +12,10 @@ namespace foodBackend.models
         public string authorId { get; set; }
         public UserModel userModel { get; set; }
 
+        public ICollection<foodModel> foodModels { get; set; }
+
+       
+
 
 
         

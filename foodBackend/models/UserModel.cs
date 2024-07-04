@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 namespace foodBackend.models
 {
     public class UserModel:IdentityUser
-        
     {
      
         [Required]
@@ -17,6 +16,8 @@ namespace foodBackend.models
 
         public string Address { get;set; }
         public string? Role { get;set; }
+
+        public ICollection<foodModel> foodModels { get;set; }
       
     }
 }
