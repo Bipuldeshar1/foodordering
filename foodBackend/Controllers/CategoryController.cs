@@ -1,5 +1,6 @@
 ﻿using foodBackend.Dtos;
 using foodBackend.models;
+using foodBackend.Repository.category;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +10,26 @@ namespace foodBackend.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        public Task<IActionResult> AddCategory(categoryReg model) { }
-        public Task<IActionResult> GetCategory() { }
+        private readonly ICategory category;
 
-        public Task<IActionResult>UpdateCategory(CategoryModel model) { }
-        public Task<IActionResult>DeleteCategory(CategoryModel model) { }
+        CategoryController(ICategory category)
+        {
+            this.category = category;
+        }
+        public Task<IActionResult> AddCategory(categoryReg model) {
+            return category.AddCategory(model);
+        }
+        public Task<IActionResult> GetCategory() {
+            return category.GetCategory();
+                }
+
+        public Task<IActionResult>UpdateCategory(CategoryModel model) { 
+        return category.UpdateCategory(model);
+        }
+        public Task<IActionResult>DeleteCategory(CategoryModel model) {
+            return category.DeleteCategory(model);
+        
+        }
 
     }
 }
