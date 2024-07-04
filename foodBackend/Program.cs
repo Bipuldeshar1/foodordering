@@ -2,6 +2,7 @@ using foodBackend.Data;
 using foodBackend.models;
 using foodBackend.Repository.auth;
 using foodBackend.Repository.category;
+using foodBackend.utility.image;
 using foodBackend.utility.token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -54,7 +55,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<IAuth, AuthServices>();
 builder.Services.AddScoped<IToken, Tokenservices>();
 builder.Services.AddScoped<ICategory, categoryService>();
-
+builder.Services.AddScoped<IImage, ImageService>();
 
 
 builder.Services.AddSwaggerGen(c =>
