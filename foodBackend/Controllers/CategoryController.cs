@@ -46,12 +46,12 @@ namespace foodBackend.Controllers
         }
 
 
-        [HttpPost("delete")]
+        [HttpDelete("delete/{id}")]
         [Authorize]
-        public Task<IActionResult>DeleteCategory(CategoryModel model) {
+        public Task<IActionResult> DeleteCategory([FromRoute]string id) {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = context.userModels.FirstOrDefault(u => u.Id == userIdClaim);
-            return category.DeleteCategory(model,user);
+            return category.DeleteCategory(id,user);
         
         }
 

@@ -49,9 +49,23 @@ namespace foodBackend.Repository.category
 
         }
 
-        public Task<IActionResult> DeleteCategory(CategoryModel model, UserModel user)
+        public async Task<IActionResult> DeleteCategory(string id, UserModel user)
         {
-            throw new NotImplementedException();
+            var model = await context.categoryModels.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (model == null)
+            {
+                return new BadRequestObjectResult(new { msg = "category not found" });
+            }
+
+            if (model.authorId == user.Id)
+            {
+                context.categoryModels.Remove(model);
+                await context.SaveChangesAsync();
+                return new OkObjectResult(new { msg = "success delete" });
+            }
+
+            return new BadRequestObjectResult(new { msg = "unauthorized" });
         }
 
         public async Task<IActionResult> GetCategory()
