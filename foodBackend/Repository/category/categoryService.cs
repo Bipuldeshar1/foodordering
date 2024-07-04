@@ -74,9 +74,34 @@ namespace foodBackend.Repository.category
             return new OkObjectResult(category);
         }
 
-        public Task<IActionResult> UpdateCategory(CategoryModel model, UserModel user)
+        public async Task<IActionResult> UpdateCategory(CategoryUpdate model, UserModel user)
         {
-            throw new NotImplementedException();
+            var category= await context.categoryModels.FirstOrDefaultAsync(x=>x.Id==model.Id);
+
+            if(category == null)
+            {
+                return new BadRequestObjectResult(new { msg = "not found" });
+            }
+            else
+            {
+                if (category.authorId == user.Id)
+                {
+                    if (category.Id == model.Id)
+                    {
+                        category.categoryName = model.CategoryName;
+                        await context.SaveChangesAsync();
+                        return new OkObjectResult(new { msg = "success" });
+                    }
+                    else
+                    {
+                        return new BadRequestObjectResult(new { msg = "cannot" });
+                    }
+                }
+                else
+                {
+                    return new BadRequestObjectResult(new { msg = "unauthorized" });
+                }
+            }
         }
     }
 }

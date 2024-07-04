@@ -37,9 +37,9 @@ namespace foodBackend.Controllers
                 }
 
 
-        [HttpPost("update")]
+        [HttpPatch("update/{id}")]
         [Authorize]
-        public Task<IActionResult>UpdateCategory(CategoryModel model) {
+        public Task<IActionResult> UpdateCategory(CategoryUpdate model) {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = context.userModels.FirstOrDefault(u => u.Id == userIdClaim);
             return category.UpdateCategory(model,user);
