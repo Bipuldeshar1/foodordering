@@ -1,6 +1,7 @@
 using foodBackend.Data;
 using foodBackend.models;
 using foodBackend.Repository.auth;
+using foodBackend.Repository.category;
 using foodBackend.utility.token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -52,6 +53,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Scoped services
 builder.Services.AddScoped<IAuth, AuthServices>();
 builder.Services.AddScoped<IToken, Tokenservices>();
+builder.Services.AddScoped<ICategory, categoryService>();
 
 
 
