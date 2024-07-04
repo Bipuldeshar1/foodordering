@@ -5,12 +5,12 @@ namespace foodBackend.Repository.food
 {
     public class foodServices : IFood
     {
-        public Task<IActionResult> addFood(foodModel model, UserModel user)
+        public Task<IActionResult> addFood(foodModel model, string id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IActionResult> deleteFood(foodModel model, UserModel user)
+        public Task<IActionResult> deleteFood(foodModel model, string id)
         {
             throw new NotImplementedException();
         }
@@ -20,7 +20,7 @@ namespace foodBackend.Repository.food
             throw new NotImplementedException();
         }
 
-        public Task<IActionResult> updateFood(foodModel model, UserModel user)
+        public Task<IActionResult> updateFood(foodModel model, string id)
         {
             throw new NotImplementedException();
         }

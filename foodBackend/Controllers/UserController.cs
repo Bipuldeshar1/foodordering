@@ -32,6 +32,7 @@ namespace foodBackend.Controllers
 
         [HttpPost("register")]
         public Task<IActionResult> Register( RegisterModel model) {
+        
             return auth.Register(model);
             
         }

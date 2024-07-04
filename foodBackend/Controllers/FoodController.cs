@@ -2,6 +2,7 @@
 using foodBackend.Repository.food;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace foodBackend.Controllers
 {
@@ -17,7 +18,9 @@ namespace foodBackend.Controllers
         }
 
         public Task<IActionResult> addFood(foodModel model) {
-            return null;
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            
+            return food.addFood(model,userIdClaim);
         }
         public Task<IActionResult> getFood()
         {
@@ -25,10 +28,12 @@ namespace foodBackend.Controllers
         }
         public Task<IActionResult> updateFood(foodModel model)
         {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return null;
         }
         public Task<IActionResult> deleteFood(foodModel model)
         {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return null;
         }
     }
