@@ -16,9 +16,13 @@ namespace foodBackend.Data
 
         public DbSet<CategoryModel> categoryModels { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
             base.OnModelCreating(builder);
+
+         
 
         //    builder.Entity<IdentityRole>().HasData(
         //    new IdentityRole

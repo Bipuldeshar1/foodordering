@@ -18,39 +18,31 @@ namespace foodBackend.utility.token
         {
             this.configuration = configuration;
         }
-
-     
-        public string  GenerateToken(UserModel user)
+  
+        public string GenerateToken(UserModel user)
         {
-            DateTime currentDateTime = DateTime.UtcNow;
-            var jwtTokenHandler = new JwtSecurityTokenHandler();
-            var tokenDescriptor = new SecurityTokenDescriptor()
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim("userId", user.Id),
-                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Name, user.Name),
-                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    new Claim(JwtRegisteredClaimNames.Iat, currentDateTime.ToString()),  
-                    new Claim(JwtRegisteredClaimNames.Iss,  configuration["Jwt:Issuer"]),
-                    new Claim(JwtRegisteredClaimNames.Aud,   configuration["Jwt:Audience"]),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                  
-                }),
-                Expires = DateTime.Now.AddMinutes(15),
-               
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Jwt:Key"])), SecurityAlgorithms.HmacSha256)
-            };
 
-            SecurityToken jwtToken = jwtTokenHandler.CreateToken(tokenDescriptor);
-            String jwtStringToken = jwtTokenHandler.WriteToken(jwtToken);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!));
 
-            return jwtStringToken;
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var id = user.Id;
 
-
+            var claims = new[]
+       {
+            new Claim("userId", user.Id),
+            new Claim("userName", user.Name),
             
-        }
+        };
 
+            var token = new JwtSecurityToken(
+                configuration["Jwt:Issuer"],
+                    configuration["Jwt:Audience"],
+                    claims:claims,
+                    expires: DateTime.Now.AddMinutes(15),
+                     signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+       
     }
 }

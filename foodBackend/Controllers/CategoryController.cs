@@ -1,8 +1,11 @@
-﻿using foodBackend.Dtos;
+﻿using foodBackend.Data;
+using foodBackend.Dtos.category;
 using foodBackend.models;
 using foodBackend.Repository.category;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace foodBackend.Controllers
 {
@@ -11,23 +14,44 @@ namespace foodBackend.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategory category;
+        private readonly AppDbContext context;
 
-        CategoryController(ICategory category)
+       public CategoryController(ICategory category,AppDbContext context)
         {
             this.category = category;
+            this.context = context;
         }
-        public Task<IActionResult> AddCategory(categoryReg model) {
-            return category.AddCategory(model);
+
+        [HttpPost("add")]
+        [Authorize]
+        public Task<IActionResult> AddCategory([FromForm] categoryReg model) {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user =  context.userModels.FirstOrDefault(u => u.Id == userIdClaim);
+            return category.AddCategory(model,user);
         }
+
+
+        [HttpGet("get")]
         public Task<IActionResult> GetCategory() {
             return category.GetCategory();
                 }
 
-        public Task<IActionResult>UpdateCategory(CategoryModel model) { 
-        return category.UpdateCategory(model);
+
+        [HttpPost("update")]
+        [Authorize]
+        public Task<IActionResult>UpdateCategory(CategoryModel model) {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = context.userModels.FirstOrDefault(u => u.Id == userIdClaim);
+            return category.UpdateCategory(model,user);
         }
+
+
+        [HttpPost("delete")]
+        [Authorize]
         public Task<IActionResult>DeleteCategory(CategoryModel model) {
-            return category.DeleteCategory(model);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = context.userModels.FirstOrDefault(u => u.Id == userIdClaim);
+            return category.DeleteCategory(model,user);
         
         }
 

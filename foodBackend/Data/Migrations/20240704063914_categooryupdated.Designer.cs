@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using foodBackend.Data;
 
@@ -11,9 +12,11 @@ using foodBackend.Data;
 namespace foodBackend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240704063914_categooryupdated")]
+    partial class categooryupdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,28 +231,38 @@ namespace foodBackend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("foodBackend.models.CategoryManagement", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CategoryID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("categoryManagements");
+                });
+
             modelBuilder.Entity("foodBackend.models.CategoryModel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("authorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("categoryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("userModelId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("userModelId");
 
                     b.ToTable("categoryModels");
                 });
@@ -327,13 +340,33 @@ namespace foodBackend.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("foodBackend.models.CategoryManagement", b =>
+                {
+                    b.HasOne("foodBackend.models.CategoryModel", "categoryModel")
+                        .WithMany("categoryManagment")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("foodBackend.models.UserModel", "UserModel")
+                        .WithMany("CategoryManagement")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserModel");
+
+                    b.Navigation("categoryModel");
+                });
+
             modelBuilder.Entity("foodBackend.models.CategoryModel", b =>
                 {
-                    b.HasOne("foodBackend.models.UserModel", "userModel")
-                        .WithMany()
-                        .HasForeignKey("userModelId");
+                    b.Navigation("categoryManagment");
+                });
 
-                    b.Navigation("userModel");
+            modelBuilder.Entity("foodBackend.models.UserModel", b =>
+                {
+                    b.Navigation("CategoryManagement");
                 });
 #pragma warning restore 612, 618
         }
