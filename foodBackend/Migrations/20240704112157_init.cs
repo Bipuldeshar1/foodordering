@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace foodBackend.Migrations
 {
     /// <inheritdoc />
@@ -30,6 +32,11 @@ namespace foodBackend.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -156,6 +163,66 @@ namespace foodBackend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "categoryModels",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    categoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    authorId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    userModelId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_categoryModels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_categoryModels_AspNetUsers_userModelId",
+                        column: x => x.userModelId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "foodModels",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    imageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    price = table.Column<int>(type: "int", nullable: false),
+                    quantity = table.Column<int>(type: "int", nullable: false),
+                    address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    outOfStock = table.Column<bool>(type: "bit", nullable: false),
+                    authorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    categoryId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_foodModels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_foodModels_AspNetUsers_authorId",
+                        column: x => x.authorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_foodModels_categoryModels_categoryId",
+                        column: x => x.categoryId,
+                        principalTable: "categoryModels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "2f1bf85b-6672-4f71-8b61-36635afc6139", null, "Admin", "Admin" },
+                    { "c498de9d-9ba4-45a9-9cea-7e7ed87ef004", null, "User", "User" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -194,6 +261,21 @@ namespace foodBackend.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_categoryModels_userModelId",
+                table: "categoryModels",
+                column: "userModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_foodModels_authorId",
+                table: "foodModels",
+                column: "authorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_foodModels_categoryId",
+                table: "foodModels",
+                column: "categoryId");
         }
 
         /// <inheritdoc />
@@ -215,7 +297,13 @@ namespace foodBackend.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "foodModels");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "categoryModels");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

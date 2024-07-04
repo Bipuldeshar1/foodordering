@@ -34,21 +34,21 @@ namespace foodBackend.Data
                 .WithMany(c => c.foodModels)
                 .HasForeignKey(f => f.categoryId);
 
-        //    builder.Entity<IdentityRole>().HasData(
-        //    new IdentityRole
-        //    {
-        //        Id = Guid.NewGuid().ToString(),
-        //        Name = "Admin",
-        //        NormalizedName = "Admin"
-        //    },
-        //    new IdentityRole
-        //    {
-        //        Id = Guid.NewGuid().ToString(),
-        //        Name = "User",
-        //        NormalizedName = "User"
-        //    }
+            builder.Entity<IdentityRole>().HasData(
+            new IdentityRole
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Admin",
+                NormalizedName = "Admin"
+            },
+            new IdentityRole
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "User",
+                NormalizedName = "User"
+            }
 
-        //); 
+        );
 
         }
     } 

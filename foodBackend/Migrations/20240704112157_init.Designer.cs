@@ -12,8 +12,8 @@ using foodBackend.Data;
 namespace foodBackend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240702033134_usermodel")]
-    partial class usermodel
+    [Migration("20240704112157_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,20 @@ namespace foodBackend.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "2f1bf85b-6672-4f71-8b61-36635afc6139",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "c498de9d-9ba4-45a9-9cea-7e7ed87ef004",
+                            Name = "User",
+                            NormalizedName = "User"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -231,6 +245,76 @@ namespace foodBackend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("foodBackend.models.CategoryModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("authorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("categoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userModelId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("userModelId");
+
+                    b.ToTable("categoryModels");
+                });
+
+            modelBuilder.Entity("foodBackend.models.foodModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("authorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("categoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("imageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("outOfStock")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("authorId");
+
+                    b.HasIndex("categoryId");
+
+                    b.ToTable("foodModels");
+                });
+
             modelBuilder.Entity("foodBackend.models.UserModel", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -248,7 +332,6 @@ namespace foodBackend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("UserModel");
@@ -303,6 +386,44 @@ namespace foodBackend.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("foodBackend.models.CategoryModel", b =>
+                {
+                    b.HasOne("foodBackend.models.UserModel", "userModel")
+                        .WithMany()
+                        .HasForeignKey("userModelId");
+
+                    b.Navigation("userModel");
+                });
+
+            modelBuilder.Entity("foodBackend.models.foodModel", b =>
+                {
+                    b.HasOne("foodBackend.models.UserModel", "userModel")
+                        .WithMany("foodModels")
+                        .HasForeignKey("authorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("foodBackend.models.CategoryModel", "category")
+                        .WithMany("foodModels")
+                        .HasForeignKey("categoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("category");
+
+                    b.Navigation("userModel");
+                });
+
+            modelBuilder.Entity("foodBackend.models.CategoryModel", b =>
+                {
+                    b.Navigation("foodModels");
+                });
+
+            modelBuilder.Entity("foodBackend.models.UserModel", b =>
+                {
+                    b.Navigation("foodModels");
                 });
 #pragma warning restore 612, 618
         }
