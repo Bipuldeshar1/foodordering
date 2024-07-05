@@ -26,6 +26,10 @@ namespace foodBackend.Repository.food
                 return new BadRequestObjectResult(new { msg = "user not ofund" });
             }
             var category= await context.categoryModels.FirstOrDefaultAsync(x=>x.Id == model.categoryId);
+            if (category == null)
+            {
+                return new BadRequestObjectResult(new { msg = "Category not found" });
+            }
             string imageUrl = "";
             if(model.imageUrl !=null || model.imageUrl.Length > 0){
                 imageUrl= await image.UploadImageAsync(model.imageUrl);
