@@ -22,7 +22,7 @@ namespace foodBackend.Controllers
 
         [HttpPost("add")]
         [Authorize]
-        public Task<IActionResult> addFood(foodReg model) {
+        public Task<IActionResult> addFood([FromForm] foodReg model) {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             
             return food.addFood(model,userIdClaim);
@@ -36,7 +36,7 @@ namespace foodBackend.Controllers
 
         [HttpPut("update")]
         [Authorize]
-        public Task<IActionResult> updateFood(foodUpdate model)
+        public Task<IActionResult> updateFood([FromForm] foodUpdate model)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return food.updateFood(model,userIdClaim);
