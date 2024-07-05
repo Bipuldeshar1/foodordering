@@ -1,11 +1,15 @@
 import { NgIf } from '@angular/common';
 import { Component, Injectable } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthApiService } from '../../../services/auth-api.service';
 
 import { UserModel } from '../../../models/userModel';
 import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { min } from 'rxjs';
+
+
 
 
 @Component({
@@ -19,9 +23,10 @@ export class LoginComponent {
 
   loginForm?:any;
 
+  
  userData!:{email:string,password:string};;
 
-  constructor(private apiService:AuthApiService){}
+  constructor(private apiService:AuthApiService,private cookieService:CookieService,private router:Router){}
 
   ngOnInit(){
  
@@ -37,14 +42,24 @@ export class LoginComponent {
   
     this.apiService.postData('login',data)
    .subscribe({
-    next:(response)=>{
-       console.log('success',response);
+    next:(response:any)=>{
+  
+      if(response.msg=='success Login'){
+        console.log('success',response);
+        const token=response.token;
+        this.cookieService.set('token',token, { expires: 5}); 
+        this.router.navigate(['/']);
+      }
+      else{
+        console.log(response);
+      }
+
     },
     error:(error)=>{
       console.error('Registration error:', error);
       if (error.status === 400 && error.error && error.error.errors) {
         console.log('Validation errors:', error.error.errors);
-        // Display validation errors to the user (e.g., show them in the form)
+        
       } else {
         // Handle other types of errors (e.g., network issues, server errors)
       }
