@@ -39,7 +39,7 @@ namespace foodBackend.Controllers
 
 
         [HttpPost("login")]
-        public Task<IActionResult> login( [FromForm]LoginModel model)
+        public Task<IActionResult> login( LoginModel model)
         {
             return auth.login(model);
         }
