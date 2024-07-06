@@ -1,28 +1,26 @@
-<swiper-container
-  pagination='{
-  "el": ".swiper-pagination",
-  "clickable": true,
-  "type": "bullets"
-}'
-  space-between="30"
-  slides-per-view="4"
-  class="mySwiper"
->
-  <swiper-slide *ngFor="let i of resturants">
-    <div class="flex flex-row">
-      <div class="flex flex-col px-5">
-        <div class="w-[190px]">
-          <img
-            class="rounded-t-lg"
-            src="https://imgs.search.brave.com/JrpomeirMIMQ3vaQ_HEGU1rIjY7lTEX9LirW7fjhsTM/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YWNhdGVyZXIuY29t/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDIz/LzA2L0tGQy1sb2dv/LTEuanBn"
-          />
-        </div>
-        <div
-          class="bg-[#FC8A06] w-[190px] h-10 rounded-b-lg text-white font-bold text-center font-poppins p-3 overflow-hidden"
-        >
-          {{ i.Name }}
-        </div>
+<div class="flex flex-col items-center md:grid md:grid-cols-3 lg:grid-cols-4">
+  <div
+    class="m-4 py-5 border rounded-lg shadow-2xl cursor-pointer hover:bg-slate-100"
+    *ngFor="let i of resturants"
+  >
+    <div class="flex justify-center items-center w-full">
+      <div class="w-[380px] md:w-[200px] lg:w-[240px]">
+        <img
+          class="rounded-lg mx-auto w-[400px] md:w-[200px] lg:w-[240px]"
+          src="https://imgs.search.brave.com/5zcq_kRdP_VSBabibGyjf4pyiCili77HwkBxnesWMqE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTg0/OTQ2NzAxL3Bob3Rv/L3BpenphLmpwZz9z/PTYxMng2MTImdz0w/Jms9MjAmYz05N3Jj/MFZJaS1zM21uNHhl/NHhEeTlTLVhKX09o/Ym45MlhhRU1haUlE/X2VZPQ"
+        />
       </div>
     </div>
-  </swiper-slide>
-</swiper-container>
+    <div class="flex items-center justify-center p-3">asdf</div>
+    <div class="flex flex-row items-center justify-center">
+      <p class="pr-4">$ price</p>
+    </div>
+    <div class="flex flex-row items-center justify-center pt-3">
+      <button
+        class="bg-transparent border hover:text-white hover:bg-orange-400 border-orange-400 text-orange-400 justify-center rounded-2xl items-center h-9 w-[100px]"
+      >
+        Login
+      </button>
+    </div>
+  </div>
+</div>

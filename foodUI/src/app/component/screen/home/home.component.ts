@@ -7,11 +7,12 @@ import { Card3Component } from '../../builder/card3/card3.component';
 import { TopheaderComponent } from '../../builder/topheader/topheader.component';
 import { NavComponent } from '../../builder/nav/nav.component';
 import { FooterComponent } from '../../builder/footer/footer.component';
+import { CustomerReviewComponent } from '../../builder/customer-review/customer-review.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BannerComponent,Banner2Component,Card1Component,Card2Component,Card3Component,TopheaderComponent,NavComponent,FooterComponent],
+  imports: [BannerComponent,Banner2Component,Card1Component,Card2Component,Card3Component,TopheaderComponent,NavComponent,FooterComponent,CustomerReviewComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
