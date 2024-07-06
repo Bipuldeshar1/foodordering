@@ -6,11 +6,16 @@ The project incorporates Entity Framework Core, Repository pattern, Dependency I
 
 ### Technology Used
  -Asp.net core web api
+ 
  -Angular
+ 
  -Microsoft SQL Server Management Studio
 
 #### Features
  -implemented login and signup role based.
+ 
  -implemented jwt token.
+ 
  -implemented category managment for admin.
+ 
  -implemneted prdouct managment.
