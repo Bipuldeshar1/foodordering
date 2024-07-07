@@ -2,9 +2,10 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { AuthApiService } from '../../../services/auth-api.service';
+
 import { UserModel } from '../../../models/userModel';
 import { HttpClient } from '@angular/common/http';
+import { AuthApiService } from '../../../services/auth/auth-api.service';
 
 @Component({
   selector: 'app-register',

@@ -2,12 +2,13 @@ import { NgIf } from '@angular/common';
 import { Component, Injectable } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { AuthApiService } from '../../../services/auth-api.service';
+
 
 import { UserModel } from '../../../models/userModel';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { min } from 'rxjs';
+import { AuthApiService } from '../../../services/auth/auth-api.service';
 
 
 
