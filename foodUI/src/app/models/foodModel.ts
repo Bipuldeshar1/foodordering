@@ -4,7 +4,7 @@ export class FoodModel {
       public description: string,
       public imageUrl: string,
       public price: number,
-      public quality: number,
+      public quantity: number,
       public address: string,
       public outOfStock: boolean,
       public categoryId: string

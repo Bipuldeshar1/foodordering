@@ -1,21 +1,97 @@
-<div class="flex flex-col mx-5">
-  <h1 class="text-center mb-5">Add Products</h1>
-  <div class="flex flex-col items-start">
-    <div class="border rounded-2xl drop-shadow-sm p-5">
-      <h1>General Information</h1>
-      <p class="text-sm text-gray-400 py-3">Name</p>
-      <input
-        class="bg-gray-100 rounded-md h-9 p-2 w-[600px]"
-        type="text"
-        placeholder="name.."
-      />
-      <p class="text-sm text-gray-400 py-3">Descripion</p>
-      <textarea
-        class="bg-gray-100 rounded-md p-2 w-[600px]"
-        rows="8"
-        type="text"
-        placeholder="Descripion..."
-      ></textarea>
+<form class="form" [formGroup]="addProductForm" (ngSubmit)="OnFormSubmitted()">
+  <div class="flex flex-col mx-5">
+    <div class="flex flex-row mb-5 px-5 justify-between">
+      <h1>Add Products</h1>
+      <button type="submit">add product</button>
     </div>
+    <!-- column -->
+    <div class="flex flex-row">
+      <!-- info -->
+      <div class="flex flex-col items-start pr-3">
+        <div class="border rounded-2xl drop-shadow-sm p-5">
+          <h1>General Information</h1>
+          <p class="text-sm text-gray-400 py-3">Name</p>
+          <input
+            class="bg-gray-100 rounded-md h-9 p-2 w-[600px]"
+            type="text"
+            placeholder="name.."
+            formControlName="name"
+          />
+          <p class="text-sm text-gray-400 py-3">Descripion</p>
+          <textarea
+            class="bg-gray-100 rounded-md p-2 w-[600px]"
+            rows="7"
+            type="text"
+            placeholder="Descripion..."
+            formControlName="description"
+          ></textarea>
+          <p class="text-sm text-gray-400 py-3">Address</p>
+          <input
+            class="bg-gray-100 rounded-md h-9 p-2 w-[600px]"
+            type="text"
+            placeholder="address.."
+            formControlName="address"
+          />
+          <p class="text-sm text-gray-400 py-3">quantity</p>
+          <input
+            class="bg-gray-100 rounded-md h-9 p-2 w-[600px]"
+            type="number"
+            placeholder="quantity.."
+            formControlName="quantity"
+          />
+          <p class="text-sm text-gray-400 py-3">outOfStock</p>
+          <input
+            class="bg-gray-100 rounded-md h-9 p-2 w-[600px]"
+            type="text"
+            placeholder="outOfStock.."
+            formControlName="outOfStock"
+          />
+        </div>
+      </div>
+      <!-- 2ndcolumn -->
+      <div class="flex flex-col items-start">
+        <div class="flex flex-col">
+          <div class="border rounded-2xl drop-shadow-sm p-5 w-[500px]">
+            <h1>Images</h1>
+            <p class="text-sm text-gray-400 py-3">Images (max 3)</p>
+            <div class="border rounded-md p-5 bg-gray-100 h-[200px]">
+              <img [src]="img" alt="img" class="h-[150px]" />
+            </div>
+            <!-- <a
+              class="flex items-center justify-center text-sm text-blue-600 border border-blue-600 bg-gray-100 text-blue cursor-pointer w- h-9 rounded-md mt-5"
+              >Add More Images</a
+            > -->
+            <input
+              type="file"
+              formControlName="image"
+              (change)="onFileSelected($event)"
+            />
+          </div>
+          <!-- price -->
+          <div class="border rounded-2xl drop-shadow-sm p-5 my-5 w-[500px]">
+            <h1>Pricing</h1>
+
+            <p class="text-sm text-gray-400 py-3">Price</p>
+            <input
+              class="bg-gray-100 rounded-md h-9 p-2 w-[450px]"
+              type="text"
+              placeholder="price.."
+              formControlName="price"
+            />
+            <p class="text-sm text-gray-400 py-3">Category</p>
+            <input
+              class="bg-gray-100 rounded-md h-9 p-2 w-[450px]"
+              type="text"
+              placeholder="category.."
+              formControlName="category"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- column end -->
+    </div>
+
+    <!-- inrow -->
   </div>
-</div>
+</form>
