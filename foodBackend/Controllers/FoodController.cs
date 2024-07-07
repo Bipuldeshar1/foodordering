@@ -1,4 +1,5 @@
-﻿using foodBackend.Dtos.food;
+﻿using foodBackend.Data;
+using foodBackend.Dtos.food;
 using foodBackend.models;
 using foodBackend.Repository.food;
 using Microsoft.AspNetCore.Authorization;
@@ -13,22 +14,26 @@ namespace foodBackend.Controllers
     public class FoodController : ControllerBase
     {
         private readonly IFood food;
+        private readonly AppDbContext context;
 
-     
-        public FoodController(IFood food)
+        public FoodController(IFood food,AppDbContext context)
         {
             this.food = food;
+            this.context = context;
         }
 
         [HttpPost("add")]
         [Authorize]
-        public Task<IActionResult> addFood([FromForm] foodReg model) {
+        public Task<IActionResult> addFood(foodReg model) {
+            var token = HttpContext.Request.Headers["Authorization"];
+
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
-            return food.addFood(model,userIdClaim);
+
+            return food.addFood(model, userIdClaim!,token);
         }
 
         [HttpGet("get")]
+        [Authorize]
         public Task<IActionResult> getFood()
         {
             return food.getFood();
@@ -39,7 +44,7 @@ namespace foodBackend.Controllers
         public Task<IActionResult> updateFood([FromForm] foodUpdate model)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return food.updateFood(model,userIdClaim);
+            return food.updateFood(model,userIdClaim!);
         }
 
         [HttpDelete("delete")]
@@ -47,7 +52,7 @@ namespace foodBackend.Controllers
         public Task<IActionResult> deleteFood(foodUpdate model)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return food.deleteFood(model,userIdClaim);
+            return food.deleteFood(model,userIdClaim!);
         }
     }
 }

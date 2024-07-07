@@ -31,6 +31,26 @@ namespace foodBackend.utility.image
             return Path.Combine("assets", "uploads", fileName).Replace("\\", "/");
         }
 
-      
+        public async Task<string> GetImageAsync(string imageUrl)
+        {
+            var imagePath = Path.Combine(env.ContentRootPath, imageUrl.TrimStart('/'));
+            if (!File.Exists(imagePath))
+            {
+                throw new FileNotFoundException("Image not found.");
+            }
+
+            byte[] imageBytes;
+            using (var stream = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
+            {
+                using (var reader = new BinaryReader(stream))
+                {
+                    imageBytes = reader.ReadBytes((int)stream.Length);
+                }
+            }
+
+            return Convert.ToBase64String(imageBytes);
+        }
+
+
     }
 }

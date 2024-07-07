@@ -1,3 +1,4 @@
+using foodBackend;
 using foodBackend.Data;
 using foodBackend.models;
 using foodBackend.Repository.auth;
@@ -14,6 +15,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtConfig"));
+
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -24,6 +27,8 @@ builder.Services.AddSwaggerGen();
 // DbContext and Identity configuration
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("dbconn")));
+
+
 
 builder.Services.AddIdentity<UserModel, IdentityRole>(options =>
 {
@@ -37,20 +42,41 @@ builder.Services.AddIdentity<UserModel, IdentityRole>(options =>
     .AddDefaultTokenProviders();
 
 // JWT authentication configuration
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        options.TokenValidationParameters = new TokenValidationParameters
+        ValidIssuer = builder.Configuration.GetSection("JwtConfig:Issuer").Value,
+        ValidAudience = builder.Configuration.GetSection("JwtConfig:Audience").Value,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration.GetSection("JwtConfig:SecretKey").Value)),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = false,
+
+    };
+}
+    );
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-        };
-    });
+            policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+
+builder.Services.AddEndpointsApiExplorer();
 
 // Scoped services
 builder.Services.AddScoped<IAuth, AuthServices>();
@@ -58,7 +84,6 @@ builder.Services.AddScoped<IToken, Tokenservices>();
 builder.Services.AddScoped<ICategory, categoryService>();
 builder.Services.AddScoped<IImage, ImageService>();
 builder.Services.AddScoped<IFood, foodServices>();
-
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -88,6 +113,10 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddControllers();
+
+
+
 // Build the application
 var app = builder.Build();
 
@@ -102,10 +131,9 @@ app.UseSwaggerUI();
 
 
 app.UseHttpsRedirection();
-app.UseCors(x => x
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+app.UseCors();
+
+
 app.UseRouting();
 
 // Authentication and Authorization middleware

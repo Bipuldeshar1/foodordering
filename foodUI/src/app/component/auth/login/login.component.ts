@@ -48,7 +48,7 @@ export class LoginComponent {
       if(response.msg=='success Login'){
         console.log('success',response);
         const token=response.token;
-        this.cookieService.set('token',token, { expires: 5}); 
+        this.cookieService.set('token', token);
         this.router.navigate(['/']);
       }
       else{

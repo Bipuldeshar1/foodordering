@@ -6,7 +6,7 @@ namespace foodBackend.Repository.food
 {
     public interface IFood
     {
-        public Task<IActionResult> addFood(foodReg model,string id);
+        public Task<IActionResult> addFood(foodReg model,string id,string token);
 
         public Task<IActionResult> getFood();
 

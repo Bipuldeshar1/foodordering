@@ -18,7 +18,7 @@ namespace foodBackend.Repository.food
             this.context = context;
             this.image = image;
         }
-        public async Task<IActionResult> addFood(foodReg model, string id)
+        public async Task<IActionResult> addFood(foodReg model, string id, string token)
         {
             var user = await context.userModels.FirstOrDefaultAsync(x=>x.Id==id);
             if(user == null)
@@ -30,20 +30,21 @@ namespace foodBackend.Repository.food
             {
                 return new BadRequestObjectResult(new { msg = "Category not found" });
             }
-            string imageUrl = "";
-            if(model.imageUrl !=null || model.imageUrl.Length > 0){
-                imageUrl= await image.UploadImageAsync(model.imageUrl);
-
+            string imageUrl ="";
+            if (model.imageUrl != null && model.imageUrl.Length > 0)
+            {
+                imageUrl = await image.GetImageAsync(model.imageUrl);
             }
 
-            var fmodel=new foodModel {
+
+            var fmodel =new foodModel {
                 Id=Guid.NewGuid().ToString(),
                 name=model.name,
                 description=model.description,
                 imageUrl=imageUrl,
-                price=model.price,
-                quantity=model.quantity,
-                address=model.address,
+                price= int.Parse(model.price),
+                quantity= int.Parse(model.quantity),
+                address =model.address,
                 outOfStock=model.outOfStock,
                 authorId=user.Id,
                 categoryId=category.Id,
