@@ -8,6 +8,7 @@ import { MainDashBoardComponentComponent } from './component/screen/main-dash-bo
 import { OrdersComponent } from './component/dashboardComponent/orders/orders.component';
 import { ProductsComponent } from './component/dashboardComponent/products/products.component';
 import { ReviewComponent } from './component/dashboardComponent/review/review.component';
+import { AddProductComponent } from './component/dashboardComponent/products/add-product/add-product.component';
 
 export const routes: Routes = [
     {path:'', component:HomeComponent,},
@@ -27,6 +28,7 @@ export const routes: Routes = [
             {path:'orders', component:OrdersComponent,},  
             {path:'product', component:ProductsComponent,},  
             {path:'reviews', component:ReviewComponent,},  
+            {path:'add-product', component:AddProductComponent,},  
             // Add more child routes as needed
         ]
     },
