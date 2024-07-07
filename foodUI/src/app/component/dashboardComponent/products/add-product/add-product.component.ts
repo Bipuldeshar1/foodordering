@@ -43,8 +43,9 @@ export class AddProductComponent {
   }
  
   OnFormSubmitted(){
-    console.log(this.addProductForm.value);
-    
+   
+  
+ 
   }
 
 }

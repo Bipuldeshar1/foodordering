@@ -46,7 +46,7 @@ export class RegisterComponent {
     phoneNumber:this.registerForm.value.PhoneNumber,
     address:this.registerForm.value.Address, 
    }
-   console.log(addUser);
+   
    
 
    this.http.post("https://localhost:7122/api/User/register",addUser)
