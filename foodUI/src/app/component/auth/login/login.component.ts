@@ -45,9 +45,11 @@ export class LoginComponent {
    .subscribe({
     next:(response:any)=>{
   
-      if(response.msg=='success Login'){
+      if(response.msg=='Success Login'){
         console.log('success',response);
         const token=response.token;
+        console.log(token);
+        
         this.cookieService.set('token', token);
         this.router.navigate(['/']);
       }
