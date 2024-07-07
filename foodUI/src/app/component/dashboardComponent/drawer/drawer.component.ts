@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
-import { Router } from 'express';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-drawer',
@@ -11,4 +11,7 @@ import { Router } from 'express';
 })
 export class DrawerComponent {
 
+  constructor(private router:Router){}
+
+ 
 }

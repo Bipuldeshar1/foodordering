@@ -13,7 +13,5 @@ export class DashboardComponent {
   constructor(private router: Router){
 
   }
-  navigateTo(route: string) {
-    this.router.navigateByUrl('/dashboard/' + route); 
-  }
+ 
 }

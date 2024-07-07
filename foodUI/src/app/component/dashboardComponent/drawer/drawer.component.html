@@ -1,5 +1,56 @@
-<div class="drawer">
-  <a routerLink="/register" routerLinkActive="active">Dashboard</a>
-  <a routerLink="/login" routerLinkActive="active">Login</a>
-  <!-- Add other links here -->
+<div class="w-64 h-max">
+  <ul class="p-4flex justify-center">
+    <li class="text-2xl cursor-pointer flex justify-center py-4">Logo</li>
+    <hr />
+    <li
+      class="cursor-pointer p-4 m-2"
+      [routerLink]="'/mainDBoard/dashboard'"
+      routerLinkActive="bg-gray-300  text-lg  rounded-2xl"
+    >
+      Dashboard
+    </li>
+
+    <li
+      class="cursor-pointer p-4 m-2"
+      [routerLink]="'/mainDBoard/orders'"
+      routerLinkActive="bg-gray-300  text-lg  rounded-2xl"
+    >
+      Orders
+    </li>
+    <li
+      class="cursor-pointer p-4 m-2"
+      [routerLink]="'/mainDBoard/category'"
+      routerLinkActive="bg-gray-300  text-lg  rounded-2xl"
+    >
+      CAtegory
+    </li>
+    <li
+      class="cursor-pointer p-4 m-2"
+      [routerLink]="'/mainDBoard/product'"
+      routerLinkActive="bg-gray-300  text-lg  rounded-2xl"
+    >
+      Products
+    </li>
+    <li
+      class="cursor-pointer p-4 m-2"
+      [routerLink]="'/mainDBoard/reviews'"
+      routerLinkActive="bg-gray-300  text-lg  rounded-2xl"
+    >
+      Reviews
+    </li>
+    <li
+      class="cursor-pointer p-4 m-2"
+      [routerLink]="'/mainDBoard/logout'"
+      routerLinkActive="bg-gray-300  text-lg  rounded-2xl"
+    >
+      Add admins
+    </li>
+    <li
+      class="cursor-pointer p-4 m-2"
+      [routerLink]="'/mainDBoard/add-admins'"
+      routerLinkActive="bg-gray-300  text-lg  rounded-2xl"
+    >
+      Logout
+    </li>
+  </ul>
 </div>
