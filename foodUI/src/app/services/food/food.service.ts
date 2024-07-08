@@ -16,9 +16,10 @@ export class FoodService {
 
   private httpOptions={
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
+  
       'Authorization': `Bearer ${this.token}`
     })};
+
 
   postData(endpoint: string, data: any) {
   console.log(data.value);

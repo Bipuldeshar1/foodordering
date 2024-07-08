@@ -16,13 +16,13 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AddProductComponent {
 
-  selectedFile:any;
+ 
   addProductForm: any;
   img: any;
   outOfStock: boolean = false;
   file:any;
-  private token =this.cookieService.get('token') ;
-  constructor(private foodService: FoodService, private http: HttpClient, private cookieService: CookieService) {}
+  
+  constructor(private foodService: FoodService, ) {}
 
   ngOnInit() {
     this.addProductForm = new FormGroup({
@@ -32,7 +32,6 @@ export class AddProductComponent {
       quantity: new FormControl(null, Validators.required),
       price: new FormControl(null, Validators.required),
       category: new FormControl(null, Validators.required),
-      image: new FormControl(null, Validators.required),
       outOfStock: new FormControl(this.outOfStock)
     });
   }
@@ -40,15 +39,16 @@ export class AddProductComponent {
 
 
   onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
+
     this.file=event.target.files[0];
+    this.img=event.target.files[0];
   }
 
   OnFormSubmitted() {
  
     if(!this.file){
       console.log('emoty file')
-    } console.log(this.file);
+    } 
     const formData = new FormData();
     formData.append('name', this.addProductForm.value.name);
     formData.append('description', this.addProductForm.value.description);
@@ -60,12 +60,8 @@ export class AddProductComponent {
     formData.append('outOfStock', this.addProductForm.value.outOfStock.toString());
 
 
-  const httpOptions={
-    headers: new HttpHeaders({
-   
-      'Authorization': `Bearer ${this.token}`
-    })};
- this.http.post('https://localhost:7122/api/Food/add',formData,httpOptions).subscribe({
+
+ this.foodService.postData('add',formData).subscribe({
   next: (value) => {
     console.log(`Response:`, value);
   },
