@@ -21,6 +21,7 @@ export class CategoryService {
         'Authorization': `Bearer ${this.token}`
       })
     };
+    console.log(this.token);
     return this.http.get(`${this.baseUrl}/${endpoint}`,httpOptions);
   }
   postData(endpoint:string,data:any){

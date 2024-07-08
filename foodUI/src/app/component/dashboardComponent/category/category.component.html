@@ -12,18 +12,20 @@
     <div
       *ngFor="let cat of category"
       class="border items-center justify-center px-5 py-6 rounded-lg shadow-lg bg-gray-100"
+      (click)="openModalUpDel(cat)"
     >
       <p class="text-center">{{ cat.categoryName }}</p>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
+<!-- add Modal -->
 <div
   *ngIf="isModalOpen"
   class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75"
 >
   <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+    a
     <h2 class="text-xl font-bold mb-4">Add Category</h2>
     <form [formGroup]="CategoryForm" (submit)="addCategory()">
       <div class="mb-4">
@@ -33,7 +35,7 @@
           >Category Name</label
         >
         <input
-          formControlName="CategoryName"
+          formControlName="name"
           type="text"
           id="categoryName"
           placeholder="Enter category name"
@@ -51,6 +53,66 @@
           type="button"
           class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           (click)="closeModal()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Update/Delete Modal -->
+<div
+  *ngIf="isModalOpens"
+  class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75"
+>
+  <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+    <h2 class="text-xl font-bold mb-4">Update Category</h2>
+    <form [formGroup]="CategoryDesForm">
+      <div class="mb-4">
+        <label
+          for="categoryName"
+          class="block text-gray-700 text-sm font-bold mb-2"
+          >Category Name</label
+        >
+        <input
+          formControlName="name"
+          type="text"
+          id="categoryName"
+          [(ngModel)]="catName"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+        <label
+          for="categoryID"
+          class="block text-gray-700 text-sm font-bold mb-2"
+          >Category Id</label
+        >
+        <input
+          formControlName="id"
+          type="text"
+          id="categoryId"
+          [(ngModel)]="catid"
+          readonly
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
+      <div class="flex items-center justify-between">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          (click)="UpdateCategory()"
+        >
+          update
+        </button>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          (click)="deleteCategories(catid)"
+        >
+          delete
+        </button>
+        <button
+          type="button"
+          class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          (click)="closeModalUpDel()"
         >
           Cancel
         </button>
