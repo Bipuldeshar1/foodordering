@@ -25,7 +25,7 @@ namespace foodBackend.Repository.food
             {
                 return new BadRequestObjectResult(new { msg = "user not ofund" });
             }
-            var category= await context.categoryModels.FirstOrDefaultAsync(x=>x.Id == model.categoryId);
+            var category= await context.categoryModels.FirstOrDefaultAsync(x=>x.categoryName==model.categoryName);
             if (category == null)
             {
                 return new BadRequestObjectResult(new { msg = "Category not found" });

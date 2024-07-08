@@ -53,11 +53,12 @@ export class AddProductComponent {
   address:this.addProductForm.value.address,
   quantity:this.addProductForm.value.quantity,
   price:this.addProductForm.value.price,
-  categoryId:this.addProductForm.value.category,
+  categoryName:this.addProductForm.value.category,
   imageUrl:this.addProductForm.value.image,
   outOfStock:this.addProductForm.value.outOfStock,
   
  }
+
 
  this.foodService.postData('add',product).subscribe({
   next: (value) => {

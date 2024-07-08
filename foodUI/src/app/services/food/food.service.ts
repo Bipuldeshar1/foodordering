@@ -8,14 +8,12 @@ import { CookieService } from 'ngx-cookie-service';
 export class FoodService {
 
 
-
-
-  
- 
-
   constructor(private http: HttpClient, private cookieService:CookieService) {}
+
   private token =this.cookieService.get('token') ;
+
   private baseUrl = "https://localhost:7122/api/Food";
+
   private httpOptions={
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -23,7 +21,7 @@ export class FoodService {
     })};
 
   postData(endpoint: string, data: any) {
-
+  console.log(this.token);
     return this.http.post(`${this.baseUrl}/${endpoint}`, data, this.httpOptions);
   }
 }

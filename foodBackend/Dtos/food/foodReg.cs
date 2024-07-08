@@ -12,6 +12,6 @@ namespace foodBackend.Dtos.food
         public string quantity { get; set; }
         public string address { get; set; }
         public bool outOfStock { get; set; }
-        public string categoryId { get; set; }
+        public string categoryName { get; set; }
     }
 }
