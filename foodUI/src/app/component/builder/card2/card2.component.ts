@@ -12,15 +12,6 @@ import { categoryModel } from '../../../models/categoryModel';
 })
 export class Card2Component {
 
-  category:categoryModel[]=[
-    new categoryModel('a','a','a','a'),
-    new categoryModel('b','a','a','a'),
-    new categoryModel('a','a','a','a'),
-    new categoryModel('b','a','a','a'),
-    new categoryModel('a','a','a','a'),
-    new categoryModel('b','a','a','a'),
-    new categoryModel('a','a','a','a'),
- 
-  ]
+
 
 }
