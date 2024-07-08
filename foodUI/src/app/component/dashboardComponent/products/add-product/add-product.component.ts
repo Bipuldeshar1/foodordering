@@ -16,51 +16,56 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AddProductComponent {
 
+  selectedFile:any;
   addProductForm: any;
   img: any;
   outOfStock: boolean = false;
-
+  file:any;
+  private token =this.cookieService.get('token') ;
   constructor(private foodService: FoodService, private http: HttpClient, private cookieService: CookieService) {}
 
   ngOnInit() {
     this.addProductForm = new FormGroup({
-      name: new FormControl(null),
-      description: new FormControl(null),
-      address: new FormControl(null),
-      quantity: new FormControl(null),
-      price: new FormControl(null),
-      category: new FormControl(null),
-      image: new FormControl(null),
+      name: new FormControl(null, Validators.required),
+      description: new FormControl(null, Validators.required),
+      address: new FormControl(null, Validators.required),
+      quantity: new FormControl(null, Validators.required),
+      price: new FormControl(null, Validators.required),
+      category: new FormControl(null, Validators.required),
+      image: new FormControl(null, Validators.required),
       outOfStock: new FormControl(this.outOfStock)
     });
   }
 
-  onFileSelected(event: any) {
-    if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.img = reader.result; // Set img to base64 data URI
-      };
-    }
+
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+    this.file=event.target.files[0];
   }
 
   OnFormSubmitted() {
- const product={
-  name:this.addProductForm.value.name,
-  description:this.addProductForm.value.description,
-  address:this.addProductForm.value.address,
-  quantity:this.addProductForm.value.quantity,
-  price:this.addProductForm.value.price,
-  categoryName:this.addProductForm.value.category,
-  imageUrl:this.addProductForm.value.image,
-  outOfStock:this.addProductForm.value.outOfStock,
-  
- }
+ 
+    if(!this.file){
+      console.log('emoty file')
+    } console.log(this.file);
+    const formData = new FormData();
+    formData.append('name', this.addProductForm.value.name);
+    formData.append('description', this.addProductForm.value.description);
+    formData.append('address', this.addProductForm.value.address);
+    formData.append('quantity', this.addProductForm.value.quantity);
+    formData.append('price', this.addProductForm.value.price);
+    formData.append('categoryName', this.addProductForm.value.category);
+    formData.append('imageUrl', this.file);
+    formData.append('outOfStock', this.addProductForm.value.outOfStock.toString());
 
 
- this.foodService.postData('add',product).subscribe({
+  const httpOptions={
+    headers: new HttpHeaders({
+   
+      'Authorization': `Bearer ${this.token}`
+    })};
+ this.http.post('https://localhost:7122/api/Food/add',formData,httpOptions).subscribe({
   next: (value) => {
     console.log(`Response:`, value);
   },
@@ -69,5 +74,6 @@ export class AddProductComponent {
   }
   })
 }
+
  
 }

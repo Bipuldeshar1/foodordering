@@ -21,7 +21,7 @@ export class FoodService {
     })};
 
   postData(endpoint: string, data: any) {
-  console.log(this.token);
+  console.log(data.value);
     return this.http.post(`${this.baseUrl}/${endpoint}`, data, this.httpOptions);
   }
 }

@@ -33,7 +33,7 @@ namespace foodBackend.Repository.food
             string imageUrl ="";
             if (model.imageUrl != null && model.imageUrl.Length > 0)
             {
-                imageUrl = await image.GetImageAsync(model.imageUrl);
+                imageUrl = await image.UploadImageAsync(model.imageUrl);
             }
 
 

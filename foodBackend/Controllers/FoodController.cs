@@ -1,9 +1,11 @@
 ﻿using foodBackend.Data;
+using foodBackend.Dtos;
 using foodBackend.Dtos.food;
 using foodBackend.models;
 using foodBackend.Repository.food;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -23,14 +25,18 @@ namespace foodBackend.Controllers
         }
 
         [HttpPost("add")]
-        [Authorize]
-        public Task<IActionResult> addFood(foodReg model) {
+
+        public Task<IActionResult> addFood([FromForm]foodReg model) {
             var token = HttpContext.Request.Headers["Authorization"];
 
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             return food.addFood(model, userIdClaim!,token);
         }
+
+      
+
+
 
         [HttpGet("get")]
         [Authorize]
