@@ -59,40 +59,14 @@ export class AddProductComponent {
   
  }
 
-
-    //  const token = this.cookieService.get('token');
-    
-   
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYW1laWQiOiI2NGQ4YWQ2Zi0yYjFkLTRlNDQtOGZhOC0xMGQzNDAxYjdkYWUiLCJuYmYiOjE3MjAzNjU4NDEsImV4cCI6MTcyMDM2OTQ0MSwiaWF0IjoxNzIwMzY1ODQxLCJpc3MiOiJsb2NhbGhvc3Q6NDQzOTMiLCJhdWQiOiJsb2NhbGhvc3Q6NDQzOTMifQ.S1rx0VdxHgw9ejGUezqb9GlXnSH3ie2rdtv1Dhn0LGc";
-    
-   
-    console.log(token);
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization':`Bearer ${token}` 
-      })
-    };
-    
-    this.http.post("https://localhost:7122/api/Food/add", product,httpOptions)
-      .subscribe({
-        next: (value) => {
-          console.log(`Response:`, value);
-        },
-        error: (error) => {
-          console.error(`Error:`, error);
-        }
-      });
-
-    // this.http.get("https://localhost:7122/api/Food/get",httpOptions).subscribe({
-    //       next: (value) => {
-    //         console.log(`Response:`, value);
-    //       },
-    //       error: (error) => {
-    //         console.error(`Error:`, error);
-    //       }
-    //     });
+ this.foodService.postData('add',product).subscribe({
+  next: (value) => {
+    console.log(`Response:`, value);
+  },
+  error: (error) => {
+    console.error(`Error:`, error);
   }
-
-  
+  })
+}
  
 }
