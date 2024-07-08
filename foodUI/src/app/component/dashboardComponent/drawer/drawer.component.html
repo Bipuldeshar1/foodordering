@@ -40,17 +40,11 @@
     </li>
     <li
       class="cursor-pointer p-4 m-2"
-      [routerLink]="'/mainDBoard/logout'"
+      [routerLink]="'/mainDBoard/add-admins'"
       routerLinkActive="bg-gray-300  text-lg  rounded-2xl"
     >
       Add admins
     </li>
-    <li
-      class="cursor-pointer p-4 m-2"
-      [routerLink]="'/mainDBoard/add-admins'"
-      routerLinkActive="bg-gray-300  text-lg  rounded-2xl"
-    >
-      Logout
-    </li>
+    <li class="cursor-pointer p-4 m-2" (click)="logout()">Logout</li>
   </ul>
 </div>

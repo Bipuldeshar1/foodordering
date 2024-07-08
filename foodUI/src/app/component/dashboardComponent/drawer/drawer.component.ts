@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
+import { AuthApiService } from '../../../services/auth/auth-api.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -11,7 +13,22 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
 })
 export class DrawerComponent {
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private authService:AuthApiService,private cookieService:CookieService){}
 
- 
+ logout(){
+  this.authService.postLogout('logout').subscribe({
+    next:(value:any)=>{
+      if(value.msg=='User logged out successfully'){
+        console.log("success",value);
+        this.cookieService.delete('token');
+        this.router.navigate(['/mainDBoard/login']); 
+      }
+     
+    },
+    error:(error)=>{
+      console.log("error",error);
+    }
+  })
+ }
+
 }

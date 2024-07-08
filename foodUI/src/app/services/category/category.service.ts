@@ -23,15 +23,17 @@ export class CategoryService {
     
     return this.http.get(`${this.baseUrl}/${endpoint}`,this.httpOptions);
   }
+
   postData(endpoint:string,data:any){
   
-    
     return this.http.post(`${this.baseUrl}/${endpoint}`,data,this.httpOptions);
   }
+
   updateData(endpoint:string,data:any){
  
     return this.http.put(`${this.baseUrl}/${endpoint}`,data,this.httpOptions);
   }
+  
   deleteData(endpoint:string,id:any){
  
     return this.http.delete(`${this.baseUrl}/${endpoint}/${id}`,this.httpOptions);
