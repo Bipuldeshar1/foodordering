@@ -68,9 +68,15 @@ namespace foodBackend.Repository.category
             return new BadRequestObjectResult(new { msg = "unauthorized" });
         }
 
-        public async Task<IActionResult> GetCategory()
+        public async Task<IActionResult> GetCategory(UserModel user)
         {
-            var category = await context.categoryModels.ToListAsync();
+            if (user == null)
+            {
+                return new BadRequestObjectResult(new { msg = "user not found" });
+            }
+            
+            var category = await context.categoryModels.Where(c=>c.authorId==user.Id).ToListAsync();
+            
             return new OkObjectResult(category);
         }
 

@@ -24,7 +24,7 @@ namespace foodBackend.Controllers
 
         [HttpPost("add")]
         [Authorize]
-        public Task<IActionResult> AddCategory([FromForm] categoryReg model) {
+        public Task<IActionResult> AddCategory(categoryReg model) {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user =  context.userModels.FirstOrDefault(u => u.Id == userIdClaim);
             return category.AddCategory(model,user);
@@ -32,12 +32,18 @@ namespace foodBackend.Controllers
 
 
         [HttpGet("get")]
+        [Authorize]
         public Task<IActionResult> GetCategory() {
-            return category.GetCategory();
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+
+            var user = context.userModels.FirstOrDefault(u => u.Id == userIdClaim);
+            var u = context.userModels.FirstOrDefault(u => u.Email == email);
+            return category.GetCategory(user);
                 }
 
 
-        [HttpPatch("update/{id}")]
+        [HttpPut("update")]
         [Authorize]
         public Task<IActionResult> UpdateCategory(CategoryUpdate model) {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

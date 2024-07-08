@@ -8,7 +8,7 @@ namespace foodBackend.Repository.category
     {
 
         public Task<IActionResult> AddCategory(categoryReg model, UserModel user);
-        public Task<IActionResult> GetCategory();
+        public Task<IActionResult> GetCategory(UserModel user);
         public Task<IActionResult> UpdateCategory(CategoryUpdate model, UserModel user);
         public Task<IActionResult> DeleteCategory(string id, UserModel user);
     }
