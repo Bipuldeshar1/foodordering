@@ -12,47 +12,29 @@ export class CategoryService {
 
   private token =this.cookieService.get('token') ;
   private baseUrl = "  https://localhost:7122/api/Category";
+  private httpOptions={
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    })};
 
 
   getData(endpoint:string){
-    const httpOptions={
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.token}`
-      })
-    };
-    console.log(this.token);
-    return this.http.get(`${this.baseUrl}/${endpoint}`,httpOptions);
+    
+    return this.http.get(`${this.baseUrl}/${endpoint}`,this.httpOptions);
   }
   postData(endpoint:string,data:any){
-    const httpOptions={
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.token}`
-      })
-    };
-
-    return this.http.post(`${this.baseUrl}/${endpoint}`,data,httpOptions);
+  
+    
+    return this.http.post(`${this.baseUrl}/${endpoint}`,data,this.httpOptions);
   }
   updateData(endpoint:string,data:any){
-    const httpOptions={
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.token}`
-      })
-    };
-
-    return this.http.put(`${this.baseUrl}/${endpoint}`,data,httpOptions);
+ 
+    return this.http.put(`${this.baseUrl}/${endpoint}`,data,this.httpOptions);
   }
   deleteData(endpoint:string,id:any){
-    const httpOptions={
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.token}`
-      })
-    };
-
-    return this.http.delete(`${this.baseUrl}/${endpoint}/${id}`,httpOptions);
+ 
+    return this.http.delete(`${this.baseUrl}/${endpoint}/${id}`,this.httpOptions);
   }
 
 }
