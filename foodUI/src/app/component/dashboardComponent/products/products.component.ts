@@ -3,6 +3,8 @@ import { ResturantModel } from '../../../models/resturantmodel';
 import { NgFor } from '@angular/common';
 import { Card3Component } from '../../builder/card3/card3.component';
 import { RouterLink } from '@angular/router';
+import { FoodModel } from '../../../models/foodModel';
+import { FoodService } from '../../../services/food/food.service';
 
 @Component({
   selector: 'app-products',
@@ -12,12 +14,22 @@ import { RouterLink } from '@angular/router';
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
-  resturants?:ResturantModel []=[
-    new ResturantModel('a','a','a','a'),
-    new ResturantModel('b','a','a','a'),
-    new ResturantModel('c','a','a','a'),
-    new ResturantModel('a','a','a','a'),
-    new ResturantModel('b','a','a','a'),
-    new ResturantModel('c','a','a','a'),
-   ];
+ food:FoodModel[]=[];
+
+   constructor(private foodService:FoodService){} 
+   
+  ngonInit(){
+    
+  }
+  
+  getFood(){
+    this.foodService.getData('get').subscribe({
+      next: (value) => {
+        console.log(`Response:`, value);
+      },
+      error: (error) => {
+        console.error(`Error:`, error);
+      }
+    })
+  }
 }

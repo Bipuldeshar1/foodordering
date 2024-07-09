@@ -2,13 +2,13 @@ import { Component, Injectable } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FoodService } from '../../../../services/food/food.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
+import { NgIf } from '@angular/common';
+
 
 @Injectable()
 @Component({
   selector: 'app-add-product',
-  imports:[ReactiveFormsModule,RouterModule],
+  imports:[ReactiveFormsModule,RouterModule,NgIf],
   standalone:true,
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css'],

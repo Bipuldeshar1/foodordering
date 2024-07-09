@@ -22,7 +22,20 @@ export class FoodService {
 
 
   postData(endpoint: string, data: any) {
-  console.log(data.value);
     return this.http.post(`${this.baseUrl}/${endpoint}`, data, this.httpOptions);
   }
+
+  getData(endpoint:string){
+    return this.http.get(`${this.baseUrl}/${endpoint}`,this.httpOptions);
+  }
+  updateData(endpoint:string){
+    return this.http.get(`${this.baseUrl}/${endpoint}`,this.httpOptions);
+  }
+  DeleteData(endpoint:string){
+    return this.http.get(`${this.baseUrl}/${endpoint}`,this.httpOptions);
+  }
+  getSingle(endpoint:string){
+    return this.http.get(`${this.baseUrl}/${endpoint}`,this.httpOptions);
+  }
+  
 }
