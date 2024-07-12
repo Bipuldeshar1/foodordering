@@ -78,12 +78,15 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+
 // Scoped services
 builder.Services.AddScoped<IAuth, AuthServices>();
 builder.Services.AddScoped<IToken, Tokenservices>();
 builder.Services.AddScoped<ICategory, categoryService>();
 builder.Services.AddScoped<IImage, ImageService>();
 builder.Services.AddScoped<IFood, foodServices>();
+
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -131,10 +134,14 @@ app.UseSwaggerUI();
 
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseCors();
 
 
+
+
 app.UseRouting();
+
 
 // Authentication and Authorization middleware
 app.UseAuthentication();

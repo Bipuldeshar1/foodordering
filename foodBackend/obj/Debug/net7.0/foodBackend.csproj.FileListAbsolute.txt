@@ -82,3 +82,6 @@ F:\angular+.net\foodOrdering\foodBackend\obj\Debug\net7.0\foodBackend.genruntime
 F:\angular+.net\foodOrdering\foodBackend\obj\Debug\net7.0\ref\foodBackend.dll
 F:\angular+.net\foodOrdering\foodBackend\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 F:\angular+.net\foodOrdering\foodBackend\obj\Debug\net7.0\foodBackend.sourcelink.json
+F:\angular+.net\foodOrdering\foodBackend\bin\Debug\net7.0\CloudinaryDotNet.dll
+F:\angular+.net\foodOrdering\foodBackend\bin\Debug\net7.0\dotenv.net.dll
+F:\angular+.net\foodOrdering\foodBackend\bin\Debug\net7.0\Newtonsoft.Json.dll

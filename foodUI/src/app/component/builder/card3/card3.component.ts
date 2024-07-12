@@ -1,7 +1,8 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, Input } from '@angular/core';
 
 import { NgFor } from '@angular/common';
 import { ResturantModel } from '../../../models/resturantmodel';
+import { FoodModel } from '../../../models/foodModel';
 
 @Component({
   selector: 'app-card3',
@@ -12,12 +13,5 @@ import { ResturantModel } from '../../../models/resturantmodel';
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class Card3Component {
-  resturants?:ResturantModel []=[
-    new ResturantModel('a','a','a','a'),
-    new ResturantModel('b','a','a','a'),
-    new ResturantModel('c','a','a','a'),
-    new ResturantModel('a','a','a','a'),
-    new ResturantModel('b','a','a','a'),
-    new ResturantModel('c','a','a','a'),
-   ];
+ @Input() food?:FoodModel;
 }

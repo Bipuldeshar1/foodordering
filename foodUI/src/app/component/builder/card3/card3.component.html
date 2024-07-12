@@ -6,19 +6,19 @@
       <div class="w-[380px] md:w-[200px] lg:w-[240px]">
         <img
           class="rounded-lg mx-auto w-[400px] md:w-[200px] lg:w-[240px]"
-          src="https://imgs.search.brave.com/5zcq_kRdP_VSBabibGyjf4pyiCili77HwkBxnesWMqE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTg0/OTQ2NzAxL3Bob3Rv/L3BpenphLmpwZz9z/PTYxMng2MTImdz0w/Jms9MjAmYz05N3Jj/MFZJaS1zM21uNHhl/NHhEeTlTLVhKX09o/Ym45MlhhRU1haUlE/X2VZPQ"
+          [src]="food?.imageUrl"
         />
       </div>
     </div>
-    <div class="flex items-center justify-center p-3">asdf</div>
+    <div class="flex items-center justify-center p-3">{{ food?.name }}</div>
     <div class="flex flex-row items-center justify-center">
-      <p class="pr-4">$ price</p>
+      <p class="pr-4">$ {{ food?.price }}</p>
     </div>
     <div class="flex flex-row items-center justify-center pt-3">
       <button
         class="bg-transparent border hover:text-white hover:bg-orange-400 border-orange-400 text-orange-400 justify-center rounded-2xl items-center h-9 w-[100px]"
       >
-        Login
+        buy now
       </button>
     </div>
   </div>

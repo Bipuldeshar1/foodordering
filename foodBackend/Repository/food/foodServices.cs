@@ -4,7 +4,7 @@ using foodBackend.models;
 using foodBackend.utility.image;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
+
 
 namespace foodBackend.Repository.food
 {
@@ -30,19 +30,20 @@ namespace foodBackend.Repository.food
             {
                 return new BadRequestObjectResult(new { msg = "Category not found" });
             }
-            string imageUrl ="";
+            string imageUrl = "";
             if (model.imageUrl != null && model.imageUrl.Length > 0)
             {
-                imageUrl = await image.UploadImageAsync(model.imageUrl);
-            }
+                var uploadResult = await image.UploadToCloudinary(model.imageUrl);
+                imageUrl = uploadResult.Url.ToString();
+;            }
 
 
             var fmodel =new foodModel {
                 Id=Guid.NewGuid().ToString(),
                 name=model.name,
                 description=model.description,
-                imageUrl=imageUrl,
-                price= int.Parse(model.price),
+                imageUrl= imageUrl,
+                price = int.Parse(model.price),
                 quantity= int.Parse(model.quantity),
                 address =model.address,
                 outOfStock=model.outOfStock,
@@ -80,8 +81,11 @@ namespace foodBackend.Repository.food
         public async Task<IActionResult> getFood()
         {
            var foods= await context.foodModels.ToListAsync();
+          
+
             return new OkObjectResult(foods);
         }
+
 
         public async Task<IActionResult> updateFood(foodUpdate model, string id)
         {

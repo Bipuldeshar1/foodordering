@@ -1,8 +1,11 @@
-﻿using foodBackend.Data;
+﻿using CloudinaryDotNet.Actions;
+using foodBackend.Data;
 using foodBackend.Dtos.auth;
 using foodBackend.models;
 using foodBackend.Repository.auth;
+using foodBackend.utility.image;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +23,14 @@ namespace foodBackend.Controllers
         private readonly AppDbContext context;
         private readonly UserManager<UserModel> userManager;
         private readonly IAuth auth;
+        private readonly IImage img;
 
-        public UserController(AppDbContext context,UserManager<UserModel> userManager,IAuth auth)
+        public UserController(AppDbContext context,UserManager<UserModel> userManager,IAuth auth,IImage img)
         {
             this.context = context;
             this.userManager = userManager;
             this.auth = auth;
+            this.img = img;
         }
 
 
@@ -76,6 +81,13 @@ namespace foodBackend.Controllers
         public async Task<IActionResult> Logout()
         {
             return await auth.Logout();
+        }
+
+        [HttpPost("imgTest")]
+        public Task<ImageUploadResult> imgTest(IFormFile file)
+        {
+            return img.UploadToCloudinary(file);
+                
         }
 
     }

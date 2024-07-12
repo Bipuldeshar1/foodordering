@@ -8,4 +8,11 @@
       add-product
     </a>
   </header>
+  <!-- <div *ngFor="let item of food" class="food-list">
+    <app-card3 [food]="item"></app-card3>
+  </div> -->
+
+  <div *ngFor="let i of food">
+    <img [src]="i.imageUrl" />
+  </div>
 </div>
