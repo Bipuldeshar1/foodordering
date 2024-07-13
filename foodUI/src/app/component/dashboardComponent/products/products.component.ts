@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ResturantModel } from '../../../models/resturantmodel';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Card3Component } from '../../builder/card3/card3.component';
 import { RouterLink } from '@angular/router';
 import { FoodModel } from '../../../models/foodModel';
@@ -11,12 +11,14 @@ import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [NgFor,Card3Component,RouterLink,Card3Component],
+  imports: [NgFor,Card3Component,RouterLink,Card3Component,NgIf],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent  {
   food: FoodModel[] = [];
+  isModalOpen= false;
+  selectedProductId:any;
 
   constructor(
     private foodService: FoodService,
@@ -27,6 +29,17 @@ export class ProductsComponent  {
   ngOnInit() {
     this.getFood();
   }
+
+  openModal(food:FoodModel){
+    this.isModalOpen = true;
+    this.selectedProductId=food.id;
+  
+  }
+  closeModal() {
+    this.isModalOpen = false;
+  
+  }
+
 
   private token = this.cookieService.get('token');
   private httpOptions = {
@@ -46,4 +59,17 @@ export class ProductsComponent  {
       }
     });
   }
+
+  delete(id:any){
+    this.http.delete(`https://localhost:7122/api/Food/delete/${id}`, this.httpOptions).subscribe({
+      next: (value: any) => {
+        console.log('Response:', value);
+      
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      }
+    });
+  }
+
 }
