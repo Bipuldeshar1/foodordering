@@ -55,14 +55,14 @@ namespace foodBackend.Repository.food
             return new OkObjectResult(new { msg = "added success"});
         }
 
-        public async Task<IActionResult> deleteFood(foodUpdate model, string id)
+        public async Task<IActionResult> deleteFood(string foodid, string id)
         {
             var user = await context.userModels.FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {
                 return new BadRequestObjectResult(new { msg = "user not ofund" });
             }
-            var food= await context.foodModels.FirstOrDefaultAsync(x=>x.Id==model.Id);
+            var food= await context.foodModels.FirstOrDefaultAsync(x=>x.Id==foodid);
             if (food == null) {
                 return new BadRequestObjectResult("food not found");
             }

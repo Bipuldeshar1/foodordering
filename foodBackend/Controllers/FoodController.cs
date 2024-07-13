@@ -53,12 +53,13 @@ namespace foodBackend.Controllers
             return food.updateFood(model,userIdClaim!);
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
         [Authorize]
-        public Task<IActionResult> deleteFood(foodUpdate model)
+        public Task<IActionResult> deleteFood([FromRoute]string id )
         {
+           
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return food.deleteFood(model,userIdClaim!);
+            return food.deleteFood(id,userIdClaim!);
         }
     }
 }

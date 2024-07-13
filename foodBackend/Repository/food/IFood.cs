@@ -12,7 +12,7 @@ namespace foodBackend.Repository.food
 
         public Task<IActionResult> updateFood(foodUpdate model, string id);
 
-        public Task<IActionResult> deleteFood(foodUpdate model, string id);
+        public Task<IActionResult> deleteFood(string foodid, string id);
        
     }
 }
