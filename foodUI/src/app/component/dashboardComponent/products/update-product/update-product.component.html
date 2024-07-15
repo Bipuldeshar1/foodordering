@@ -1,1 +1,101 @@
-<p>update-product works!</p>
+<form
+  class="form"
+  [formGroup]="UpdateProductForm"
+  (ngSubmit)="OnFormSubmitted()"
+>
+  <div class="flex flex-col mx-5">
+    <div class="flex flex-row mb-5 px-5 justify-between">
+      <h1>Update Products</h1>
+      <button type="submit">Update product</button>
+    </div>
+    <div class="flex flex-row">
+      <div class="flex flex-col items-start pr-3">
+        <div class="border rounded-2xl drop-shadow-sm p-5">
+          <h1>General Information</h1>
+          <p class="text-sm text-gray-400 py-3">id</p>
+          <input
+            class="bg-gray-100 rounded-md h-9 p-2 w-[600px]"
+            type="text"
+            placeholder="id.."
+            formControlName="id"
+            [value]="food?.id"
+          />
+          <p class="text-sm text-gray-400 py-3">Name</p>
+          <input
+            class="bg-gray-100 rounded-md h-9 p-2 w-[600px]"
+            type="text"
+            placeholder="name.."
+            formControlName="name"
+            [value]="food?.name"
+          />
+
+          <p class="text-sm text-gray-400 py-3">Description</p>
+          <textarea
+            class="bg-gray-100 rounded-md p-2 w-[600px]"
+            rows="7"
+            placeholder="Description..."
+            formControlName="description"
+            [value]="food?.description"
+          ></textarea>
+
+          <p class="text-sm text-gray-400 py-3">Address</p>
+          <input
+            class="bg-gray-100 rounded-md h-9 p-2 w-[600px]"
+            type="text"
+            placeholder="address.."
+            formControlName="address"
+            [value]="food?.address"
+          />
+
+          <p class="text-sm text-gray-400 py-3">Quantity</p>
+          <input
+            class="bg-gray-100 rounded-md h-9 p-2 w-[600px]"
+            type="text"
+            placeholder="quantity.."
+            formControlName="quantity"
+            [value]="food?.quantity"
+          />
+
+          <p class="text-sm text-gray-400 py-3">Out of Stock</p>
+          <input
+            class="bg-gray-100 rounded-md h-9 p-2 w-[600px]"
+            type="text"
+            placeholder="outOfStock.."
+            formControlName="outOfStock"
+            [value]="food?.outOfStock"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-col items-start">
+        <div class="border rounded-2xl drop-shadow-sm p-5 w-[500px]">
+          <h1>Images</h1>
+          <img [src]="img" />
+          <!-- Handle image display logic if needed -->
+          <input type="file" (change)="onFileSelected($event)" />
+        </div>
+
+        <div class="border rounded-2xl drop-shadow-sm p-5 my-5 w-[500px]">
+          <h1>Pricing</h1>
+          <p class="text-sm text-gray-400 py-3">Price</p>
+          <input
+            class="bg-gray-100 rounded-md h-9 p-2 w-[600px]"
+            type="text"
+            placeholder="price.."
+            formControlName="price"
+            [value]="food?.price"
+          />
+
+          <p class="text-sm text-gray-400 py-3">Category</p>
+          <input
+            class="bg-gray-100 rounded-md h-9 p-2 w-[450px]"
+            type="text"
+            placeholder="category.."
+            formControlName="category"
+            [value]="food?.category?.categoryName"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

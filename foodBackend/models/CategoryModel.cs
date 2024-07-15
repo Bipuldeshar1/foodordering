@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace foodBackend.models
 {
@@ -11,6 +12,8 @@ namespace foodBackend.models
 
         public string authorId { get; set; }
         public UserModel userModel { get; set; }
+        
+        [JsonIgnore]
 
         public ICollection<foodModel> foodModels { get; set; }
 

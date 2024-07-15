@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { ResturantModel } from '../../../models/resturantmodel';
 import { NgFor, NgIf } from '@angular/common';
 import { Card3Component } from '../../builder/card3/card3.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FoodModel } from '../../../models/foodModel';
 import { FoodService } from '../../../services/food/food.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-products',
@@ -23,7 +24,8 @@ export class ProductsComponent  {
   constructor(
     private foodService: FoodService,
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router:Router
   ) {}
 
   ngOnInit() {
@@ -64,12 +66,21 @@ export class ProductsComponent  {
     this.http.delete(`https://localhost:7122/api/Food/delete/${id}`, this.httpOptions).subscribe({
       next: (value: any) => {
         console.log('Response:', value);
+        this.closeModal();
       
       },
       error: (error) => {
         console.error('Error:', error);
       }
     });
+  }
+
+  updateProduct() {
+    if (this.selectedProductId !== null) {
+      
+
+      this.router.navigate(['/mainDBoard/update-food'], { queryParams: { id: this.selectedProductId } });
+    }
   }
 
 }

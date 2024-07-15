@@ -17,25 +17,22 @@ export class FoodService {
   private httpOptions={
     headers: new HttpHeaders({
   
-      'Authorization':`Bearer${this.token}`
+      'Authorization':`Bearer ${this.token}`
     })};
 
 
   postData(endpoint: string, data: any) {
-    console.log(this.token);
-    
     return this.http.post(`${this.baseUrl}/${endpoint}`, data, this.httpOptions);
   }
 
   getData(endpoint:string){
-    console.log(this.token);
     return this.http.get(`${this.baseUrl}/${endpoint}`,this.httpOptions);
   }
-  updateData(endpoint:string){
-    return this.http.get(`${this.baseUrl}/${endpoint}`,this.httpOptions);
+  updateData(endpoint:string,data:any){
+    return this.http.put(`${this.baseUrl}/${endpoint}`,data,this.httpOptions);
   }
   DeleteData(endpoint:string){
-    return this.http.get(`${this.baseUrl}/${endpoint}`,this.httpOptions);
+    return this.http.delete(`${this.baseUrl}/${endpoint}`,this.httpOptions);
   }
   getSingle(endpoint:string){
     return this.http.get(`${this.baseUrl}/${endpoint}`,this.httpOptions);

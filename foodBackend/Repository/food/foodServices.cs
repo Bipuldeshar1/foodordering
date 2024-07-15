@@ -18,7 +18,7 @@ namespace foodBackend.Repository.food
             this.context = context;
             this.image = image;
         }
-        public async Task<IActionResult> addFood(foodReg model, string id, string token)
+        public async Task<IActionResult> addFood(foodReg model, string id)
         {
             var user = await context.userModels.FirstOrDefaultAsync(x=>x.Id==id);
             if(user == null)
@@ -78,9 +78,24 @@ namespace foodBackend.Repository.food
             }
         }
 
+        public  async Task<IActionResult> getById( string id, string userId)
+        {
+
+            var food = await context.foodModels
+                                .Include(f => f.category) 
+                                .FirstOrDefaultAsync(x => x.Id == id);
+
+
+
+            return new OkObjectResult(new { msg = "Success", food });
+
+        }
+
         public async Task<IActionResult> getFood()
         {
-           var foods= await context.foodModels.ToListAsync();
+           var foods= await context.foodModels
+               
+                .ToListAsync();
           
 
             return new OkObjectResult(foods);
@@ -95,26 +110,44 @@ namespace foodBackend.Repository.food
                 return new BadRequestObjectResult(new { msg = "user not ofund" });
             }
             var food = await context.foodModels.FirstOrDefaultAsync(x => x.Id == model.Id);
+       
             if (food == null)
             {
                 return new BadRequestObjectResult("food not found");
             }
 
-            var category = await context.categoryModels.FirstOrDefaultAsync(x => x.Id == model.categoryId);
+            var category = await context.categoryModels.FirstOrDefaultAsync(x => x.categoryName==model.category);
             if (category == null)
             {
                 return new BadRequestObjectResult(new { msg = "Category not found" });
             }
             if (food.authorId == user.Id)
             {
-                string imageUrl = "";
-                if (model.imageUrl != null || model.imageUrl.Length > 0)
+                string imageUrl = food.imageUrl;
+                if (model.imageUrl != null )
                 {
-                    imageUrl = await image.UploadImageAsync(model.imageUrl);
+                    var uploadResult = await image.UploadToCloudinary(model.imageUrl);
+                    imageUrl = uploadResult.Url.ToString();
+                }
+                else
+                {
+                    food.name = model.name;
+                    food.description = model.description;
+                    food.imageUrl = imageUrl;
+                    food.price = model.price;
+                    food.quantity = model.quantity;
+                    food.address = model.address;
+                    food.outOfStock = model.outOfStock;
+                    food.authorId = user.Id;
+                    food.categoryId = category.Id;
+
+                    context.SaveChanges();
+
+                    return new OkObjectResult(new { msg = "updated success" });
                 }
                 food.name = model.name;
                 food.description = model.description;
-                food.imageUrl = imageUrl;
+                food.imageUrl = imageUrl?? food.imageUrl;
                 food.price = model.price;
                 food.quantity = model.quantity;
                 food.address = model.address;

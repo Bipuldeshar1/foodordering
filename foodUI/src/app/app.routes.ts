@@ -10,6 +10,7 @@ import { ProductsComponent } from './component/dashboardComponent/products/produ
 import { ReviewComponent } from './component/dashboardComponent/review/review.component';
 import { AddProductComponent } from './component/dashboardComponent/products/add-product/add-product.component';
 import { CategoryComponent } from './component/dashboardComponent/category/category.component';
+import { UpdateProductComponent } from './component/dashboardComponent/products/update-product/update-product.component';
 
 export const routes: Routes = [
     {path:'', component:HomeComponent,},
@@ -31,6 +32,7 @@ export const routes: Routes = [
             {path:'reviews', component:ReviewComponent,},  
             {path:'add-product', component:AddProductComponent,},  
             {path:'category', component:CategoryComponent,},  
+            { path: 'update-food', component: UpdateProductComponent },
             // Add more child routes as needed
         ]
     },

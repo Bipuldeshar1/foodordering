@@ -76,6 +76,8 @@ builder.Services.AddCors(options =>
         });
 });
 
+
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));

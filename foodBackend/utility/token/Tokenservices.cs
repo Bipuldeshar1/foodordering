@@ -29,7 +29,7 @@ namespace foodBackend.utility.token
 
             var claims = new[]
        {
-            new Claim("userId", user.Id),
+            new Claim(ClaimTypes.NameIdentifier, user.Id),
             new Claim("userName", user.Name),
             
         };

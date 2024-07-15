@@ -1,3 +1,5 @@
+import { categoryModel } from "./categoryModel";
+
 export class FoodModel {
     constructor(
       public id:string,
@@ -8,7 +10,8 @@ export class FoodModel {
       public quantity: number,
       public address: string,
       public outOfStock: boolean,
-      public categoryId: string
+      public categoryName: string,
+      public category: categoryModel
     ) {}
   }
   

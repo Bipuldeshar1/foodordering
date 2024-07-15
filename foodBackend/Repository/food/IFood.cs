@@ -6,13 +6,15 @@ namespace foodBackend.Repository.food
 {
     public interface IFood
     {
-        public Task<IActionResult> addFood(foodReg model,string id,string token);
+        public Task<IActionResult> addFood(foodReg model,string id);
 
         public Task<IActionResult> getFood();
 
         public Task<IActionResult> updateFood(foodUpdate model, string id);
 
         public Task<IActionResult> deleteFood(string foodid, string id);
-       
+        public Task<IActionResult> getById([FromRoute] string id,string userId);
+
+
     }
 }

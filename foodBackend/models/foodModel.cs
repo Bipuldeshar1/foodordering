@@ -1,4 +1,6 @@
-﻿namespace foodBackend.models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace foodBackend.models
 {
     public class foodModel
     {
@@ -11,8 +13,11 @@
         public string address { get; set; }
         public bool outOfStock { get; set; }
 
+        [ForeignKey("UserModel")]
         public string authorId { get; set; }
-        public UserModel userModel { get; set; }    
+
+        public UserModel userModel { get; set; }
+        [ForeignKey("CategoryModel")]
         public string categoryId { get; set; }
         public CategoryModel category { get; set; }
 

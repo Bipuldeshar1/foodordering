@@ -14,7 +14,7 @@ export class CategoryService {
   private baseUrl = "  https://localhost:7122/api/Category";
   private httpOptions={
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
+ 
       'Authorization': `Bearer ${this.token}`
     })};
 

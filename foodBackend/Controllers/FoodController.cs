@@ -25,13 +25,13 @@ namespace foodBackend.Controllers
         }
 
         [HttpPost("add")]
-
+        [Authorize]
         public Task<IActionResult> addFood([FromForm]foodReg model) {
             var token = HttpContext.Request.Headers["Authorization"];
-
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            return food.addFood(model, userIdClaim!,token);
+
+            return food.addFood(model, userIdClaim!);
         }
 
       
@@ -39,7 +39,7 @@ namespace foodBackend.Controllers
 
 
         [HttpGet("get")]
-        [Authorize]
+ 
         public Task<IActionResult> getFood()
         {
             return food.getFood();
@@ -60,6 +60,15 @@ namespace foodBackend.Controllers
            
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return food.deleteFood(id,userIdClaim!);
+        }
+
+
+        [HttpGet("getById/{id}")]
+        [Authorize]
+        public Task<IActionResult> getById([FromRoute]string id)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return food.getById(id,userIdClaim);
         }
     }
 }
