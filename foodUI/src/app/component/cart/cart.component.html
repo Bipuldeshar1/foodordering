@@ -1,1 +1,53 @@
- 
+<div class="container mx-auto mt-10">
+  <div class="flex flex-row justify-between">
+    <h2 class="text-2xl font-bold mb-5">Your Cart</h2>
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-2 rounded"
+      (click)="buyNow()"
+    >
+      buy now
+    </button>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 border">Product</th>
+          <th class="py-2 px-4 border">Quantity</th>
+          <th class="py-2 px-4 border">Price(per unit)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems; let index = index">
+          <td class="py-2 px-4 border">{{ item.food.name }}</td>
+          <td
+            class="py-2 px-4 border flex items-center justify-center space-x-2"
+          >
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              (click)="quantityIncrease(index)"
+            >
+              +
+            </button>
+            <span>{{ item.quantity }}</span>
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              (click)="quantityDecrease(index)"
+            >
+              -
+            </button>
+          </td>
+          <td class="py-2 px-4 border">{{ item.food.price }}</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="py-2 px-4 border text-right font-bold">
+            Total:
+          </td>
+          <td class="py-2 px-4 border font-bold">
+            {{ calculateTotalPrice() }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
