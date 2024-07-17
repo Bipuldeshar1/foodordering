@@ -22,8 +22,9 @@
     >
   </div>
   <div
-    class="px-[70px] py-[10px] font-Poppins text-[15px] font-semibold w-auto"
+    class="px-[70px] py-[10px] font-Poppins text-[15px] font-semibold w-auto hover:cursor-pointer"
+    (click)="cartnavigate()"
   >
-    Cart (5)
+    Cart {{ this.noOfItemCart }}
   </div>
 </div>

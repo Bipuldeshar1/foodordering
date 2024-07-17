@@ -8,11 +8,12 @@ import { TopheaderComponent } from '../../builder/topheader/topheader.component'
 import { NavComponent } from '../../builder/nav/nav.component';
 import { FooterComponent } from '../../builder/footer/footer.component';
 import { CustomerReviewComponent } from '../../builder/customer-review/customer-review.component';
+import { ProductsComponent } from '../../dashboardComponent/products/products.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BannerComponent,Banner2Component,Card1Component,Card2Component,Card3Component,TopheaderComponent,NavComponent,FooterComponent,CustomerReviewComponent],
+  imports: [BannerComponent,Banner2Component,Card1Component,Card2Component,Card3Component,TopheaderComponent,NavComponent,ProductsComponent,FooterComponent,CustomerReviewComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

@@ -11,12 +11,14 @@ import { ReviewComponent } from './component/dashboardComponent/review/review.co
 import { AddProductComponent } from './component/dashboardComponent/products/add-product/add-product.component';
 import { CategoryComponent } from './component/dashboardComponent/category/category.component';
 import { UpdateProductComponent } from './component/dashboardComponent/products/update-product/update-product.component';
+import { CartComponent } from './component/cart/cart.component';
 
 export const routes: Routes = [
     {path:'', component:HomeComponent,},
     {path:'ResturantDetail', component:ResturantDetailComponent,},
     {path:'login', component:LoginComponent,},
     {path:'register', component:RegisterComponent,},  
+    {path:'cart', component:CartComponent,},  
   
   
     {
