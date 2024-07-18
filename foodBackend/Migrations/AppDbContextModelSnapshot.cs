@@ -51,13 +51,13 @@ namespace foodBackend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "51ec1e4c-c096-45ba-8300-9e5ac09a2ac1",
+                            Id = "c79d8925-5a91-4498-86f4-fc8f369b622c",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "c57bd2fe-4b7a-4c4b-aeac-7ab7b43b8cb4",
+                            Id = "bfceb8e3-e97a-42a2-9af0-1a07d11d7eb8",
                             Name = "User",
                             NormalizedName = "User"
                         });
@@ -286,9 +286,9 @@ namespace foodBackend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("imageUrl")
+                    b.Property<string>("imageUrl")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("name")
                         .IsRequired()
@@ -310,6 +310,67 @@ namespace foodBackend.Migrations
                     b.HasIndex("categoryId");
 
                     b.ToTable("foodModels");
+                });
+
+            modelBuilder.Entity("foodBackend.models.ordermodel.Order", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PhoneNUmber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("orders");
+                });
+
+            modelBuilder.Entity("foodBackend.models.ordermodel.orderItem", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FoodId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("OrderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("ordersItems");
                 });
 
             modelBuilder.Entity("foodBackend.models.UserModel", b =>
@@ -413,9 +474,44 @@ namespace foodBackend.Migrations
                     b.Navigation("userModel");
                 });
 
+            modelBuilder.Entity("foodBackend.models.ordermodel.Order", b =>
+                {
+                    b.HasOne("foodBackend.models.UserModel", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("foodBackend.models.ordermodel.orderItem", b =>
+                {
+                    b.HasOne("foodBackend.models.foodModel", "foodModel")
+                        .WithMany()
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("foodBackend.models.ordermodel.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("foodModel");
+                });
+
             modelBuilder.Entity("foodBackend.models.CategoryModel", b =>
                 {
                     b.Navigation("foodModels");
+                });
+
+            modelBuilder.Entity("foodBackend.models.ordermodel.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("foodBackend.models.UserModel", b =>

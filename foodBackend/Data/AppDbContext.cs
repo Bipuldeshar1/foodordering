@@ -1,4 +1,5 @@
 ﻿using foodBackend.models;
+using foodBackend.models.ordermodel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +18,25 @@ namespace foodBackend.Data
         public DbSet<CategoryModel> categoryModels { get; set; }
 
         public DbSet<foodModel> foodModels { get; set; }
+        public DbSet<Order> orders { get; set; }
+        public DbSet<orderItem> ordersItems { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
             base.OnModelCreating(builder);
+
+            builder.Entity<Order>()
+                .HasMany(o => o.OrderItems)
+                .WithOne(oi => oi.Order)
+                .HasForeignKey(oi => oi.OrderId)
+                 .OnDelete(DeleteBehavior.Restrict); ;
+
+            builder.Entity<orderItem>()
+                .HasOne(oi => oi.foodModel)
+                .WithMany()
+                .HasForeignKey(oi => oi.FoodId);
 
             builder.Entity<foodModel>()
                 .HasOne(f => f.userModel)

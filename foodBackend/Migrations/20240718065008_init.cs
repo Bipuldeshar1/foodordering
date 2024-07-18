@@ -183,6 +183,29 @@ namespace foodBackend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "orders",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalPrice = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNUmber = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_orders_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "foodModels",
                 columns: table => new
                 {
@@ -214,13 +237,40 @@ namespace foodBackend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ordersItems",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FoodId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ordersItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ordersItems_foodModels_FoodId",
+                        column: x => x.FoodId,
+                        principalTable: "foodModels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ordersItems_orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2f1bf85b-6672-4f71-8b61-36635afc6139", null, "Admin", "Admin" },
-                    { "c498de9d-9ba4-45a9-9cea-7e7ed87ef004", null, "User", "User" }
+                    { "bfceb8e3-e97a-42a2-9af0-1a07d11d7eb8", null, "User", "User" },
+                    { "c79d8925-5a91-4498-86f4-fc8f369b622c", null, "Admin", "Admin" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -276,6 +326,21 @@ namespace foodBackend.Migrations
                 name: "IX_foodModels_categoryId",
                 table: "foodModels",
                 column: "categoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_orders_UserId",
+                table: "orders",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ordersItems_FoodId",
+                table: "ordersItems",
+                column: "FoodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ordersItems_OrderId",
+                table: "ordersItems",
+                column: "OrderId");
         }
 
         /// <inheritdoc />
@@ -297,10 +362,16 @@ namespace foodBackend.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "foodModels");
+                name: "ordersItems");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "foodModels");
+
+            migrationBuilder.DropTable(
+                name: "orders");
 
             migrationBuilder.DropTable(
                 name: "categoryModels");
