@@ -4,6 +4,7 @@ using foodBackend.models;
 using foodBackend.Repository.auth;
 using foodBackend.Repository.category;
 using foodBackend.Repository.food;
+using foodBackend.Repository.order;
 using foodBackend.utility.image;
 using foodBackend.utility.token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -88,6 +89,7 @@ builder.Services.AddScoped<IToken, Tokenservices>();
 builder.Services.AddScoped<ICategory, categoryService>();
 builder.Services.AddScoped<IImage, ImageService>();
 builder.Services.AddScoped<IFood, foodServices>();
+builder.Services.AddScoped<IOrder, OrderServices>();
 
 
 builder.Services.AddSwaggerGen(c =>

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("foodBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c78d023a28229e0cf08a0bff4d81092d95c1ffc9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77623ee90b03015bd9c9e58b2c668b05bce2a8f7")]
 [assembly: System.Reflection.AssemblyProductAttribute("foodBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("foodBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
